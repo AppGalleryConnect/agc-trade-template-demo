@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: agconnect-storage-harmony-1.5.0.200@har">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/731e4cad3e0fd6926d5bd16f58a10501/transformed/agconnect-storage-harmony-1.5.0.200/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/731e4cad3e0fd6926d5bd16f58a10501/transformed/agconnect-storage-harmony-1.5.0.200/resources" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/731e4cad3e0fd6926d5bd16f58a10501/transformed/agconnect-storage-harmony-1.5.0.200/config.json" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
