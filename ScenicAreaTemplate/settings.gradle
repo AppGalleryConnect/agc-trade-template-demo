@@ -1,0 +1,2 @@
+rootProject.name = 'ScenicArea'
+include ':entry'

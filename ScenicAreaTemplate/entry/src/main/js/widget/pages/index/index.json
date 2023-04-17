@@ -1,0 +1,17 @@
+{
+  "data": {
+    "title": "Title",
+    "detail": "Text",
+    "iconTitle": "Picture"
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "router",
+      "bundleName": "com.huawei.scenicarea",
+      "abilityName": "com.huawei.scenicarea.MainAbility",
+      "params": {
+        "message": "add detail"
+      }
+    }
+  }
+}
