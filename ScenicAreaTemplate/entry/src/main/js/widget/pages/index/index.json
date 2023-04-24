@@ -7,8 +7,8 @@
   "actions": {
     "routerEvent": {
       "action": "router",
-      "bundleName": "com.huawei.scenicareademo",
-      "abilityName": "com.huawei.scenicareademo.MainAbility",
+      "bundleName": "com.huawei.scenicarea",
+      "abilityName": "com.huawei.scenicarea.MainAbility",
       "params": {
         "message": "add detail"
       }

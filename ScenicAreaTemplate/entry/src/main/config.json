@@ -1,7 +1,7 @@
 {
   "app": {
     "vendor": "example",
-    "bundleName": "com.huawei.scenicareademo",
+    "bundleName": "com.huawei.scenicarea",
     "version": {
       "code": 1000000,
       "name": "1.0.0"
@@ -9,7 +9,7 @@
   },
   "deviceConfig": {},
   "module": {
-    "mainAbility": "com.huawei.scenicareademo.MainAbility",
+    "mainAbility": "com.huawei.scenicarea.MainAbility",
     "deviceType": [
       "phone"
     ],
@@ -26,8 +26,8 @@
           }
         ],
         "visible": true,
-        "name": "com.huawei.scenicareademo.MainAbility",
-        "icon": "$media:icon",
+        "name": "com.huawei.scenicarea.MainAbility",
+        "icon": "$media:logo",
         "description": "$string:mainability_description",
         "formsEnabled": true,
         "label": "$string:entry_MainAbility",
@@ -50,6 +50,22 @@
           }
         ],
         "launchType": "standard"
+      },
+      {
+        "name": "com.huawei.scenicarea.map.MapAbility",
+        "description": "map",
+        "icon": "$media:icon",
+        "label": "$string:entry_MapAbility",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.huawei.scenicarea.pay.PayAbility",
+        "description": "pay",
+        "label": "$string:entry_PayAbility",
+        "launchType": "standard",
+        "type": "service"
       }
     ],
     "distro": {
@@ -61,19 +77,34 @@
     "metaData": {
       "customizeData": [
         {
+          "name": "com.huawei.hms.client.appid",
+          "value": ""
+        },
+        {
           "extra": "",
           "name": "hwc-theme",
           "value": "androidhwext:style/Theme.Emui.Light.NoTitleBar"
         }
       ]
     },
-    "package": "com.huawei.scenicareademo",
+    "package": "com.huawei.scenicarea",
     "name": ".MyApplication",
     "js": [
       {
         "pages": [
-          "pages/home/home",
-          "pages/index/index"
+          "pages/index/index",
+          "pages/pay/payment/payment",
+          "pages/mine/mine",
+          "pages/mine/mine_login",
+          "pages/mine/mine_suggestion",
+          "pages/mine/mine_appointment",
+          "pages/mine/mine_orders",
+          "pages/ticket/ticket_buy",
+          "pages/ticket/ticket_appointment",
+          "pages/ticket/ticket_appointment_result",
+          "pages/ticket/ticket_buy_result",
+          "pages/appointment/appointment_list",
+          "pages/ticket/ticket_list"
         ],
         "name": "default",
         "window": {
@@ -91,6 +122,45 @@
           "autoDesignWidth": true
         },
         "type": "form"
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+	  "mergeRule": {
+          "remove": [
+            "reason"
+          ]
+        }
+      },
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "reason": "request media",
+        "usedScene": {
+          "ability": [
+            "com.huawei.scenicarea.map.MapAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "request locations",
+        "usedScene": {
+          "ability": [
+            "com.huawei.scenicarea.map.MapAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        "name": "ohos.permission.GET_NETWORK_INFO",
+        "reason": "get network info",
+        "mergeRule": {
+          "remove": [
+            "reason"
+          ]
+        }
       }
     ]
   }

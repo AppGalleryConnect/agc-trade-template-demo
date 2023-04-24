@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DependentLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="51vp"
+    ohos:width="match_parent"
+    ohos:left_padding="10vp"
+    ohos:right_padding="9vp">
+
+    <Image
+        ohos:id="$+id:image_voice"
+        ohos:height="40vp"
+        ohos:width="40vp"
+        ohos:align_parent_left="true"
+        ohos:image_src="$media:icon"
+        ohos:top_margin="4vp"
+        ohos:bottom_margin="7vp"/>
+
+    <Text
+        ohos:height="0.5vp"
+        ohos:width="match_parent"
+        ohos:align_parent_bottom="true"
+        ohos:background_element="$graphic:item_line"
+        />
+
+    <DirectionalLayout
+        ohos:id="$+id:layout_play"
+        ohos:height="16vp"
+        ohos:width="42vp"
+        ohos:align_parent_right="true"
+        ohos:background_element="$graphic:background_play"
+        ohos:bottom_margin="19vp"
+        ohos:orientation="horizontal"
+        ohos:top_margin="16vp"
+        ohos:vertical_center="true">
+
+        <Image
+            ohos:id="$+id:image_play"
+            ohos:height="10vp"
+            ohos:width="10vp"
+            ohos:image_src="$media:play"
+            ohos:left_margin="7vp"
+            ohos:scale_mode="zoom_center"
+            ohos:top_margin="3vp"
+            />
+
+        <Text
+            ohos:id="$+id:text_play"
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:right_margin="6vp"
+            ohos:text="播放"
+            ohos:text_alignment="center"
+            ohos:text_color="#FFFFFF"
+            ohos:text_font="8fp"
+            />
+
+    </DirectionalLayout>
+
+    <DirectionalLayout
+        ohos:width="match_parent"
+        ohos:height="44vp"
+        ohos:left_margin="8vp"
+        ohos:left_of="$id:layout_play"
+        ohos:orientation="vertical"
+        ohos:right_of="$id:image_voice"
+        ohos:top_margin="7vp">
+
+        <Text
+            ohos:id="$+id:text_name"
+            ohos:height="14vp"
+            ohos:width="match_parent"
+            ohos:bottom_margin="0vp"
+            ohos:max_text_lines="1"
+            ohos:text="玛雅水公园"
+            ohos:text_alignment="vertical_center"
+            ohos:text_color="#000000"
+            ohos:text_size="10fp"
+            />
+
+        <Text
+            ohos:id="$+id:text_play_number"
+            ohos:height="match_parent"
+            ohos:width="match_parent"
+            ohos:max_text_lines="1"
+            ohos:text="播放量：6.8w"
+            ohos:text_alignment="vertical_center"
+            ohos:text_color="#989898"
+            ohos:text_size="8fp"
+            />
+    </DirectionalLayout>
+
+
+</DependentLayout>

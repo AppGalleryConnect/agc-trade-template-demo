@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.huawei.agconnect:login-harmony:1.5.0.200'
     implementation 'com.huawei.agconnect:agconnect-core-harmony:1.5.0.200'
     implementation 'com.huawei.agconnect:agconnect-lowcode-harmony:1.5.0.200'
+    implementation 'io.openharmony.tpc.thirdlib:glide:1.1.2'
 }
 decc {
     supportType = ['html', 'xml']

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:orientation="vertical">
+
+    <DependentLayout
+        ohos:height="44vp"
+        ohos:width="match_parent"
+        ohos:alignment="vertical_center"
+        >
+
+        <Image
+            ohos:id="$+id:image_left"
+            ohos:height="16vp"
+            ohos:width="16vp"
+            ohos:image_src="$media:arrow_left"
+            ohos:left_margin="12vp"
+            ohos:scale_mode="zoom_center"
+            ohos:vertical_center="true"
+            />
+
+        <Text
+            ohos:id="$+id:text"
+            ohos:height="20vp"
+            ohos:width="match_content"
+            ohos:left_margin="8vp"
+            ohos:right_of="$id:image_left"
+            ohos:text_font="$ohos:string:id_text_font_family_medium"
+            ohos:text="导览"
+            ohos:vertical_center="true"
+            ohos:text_size="14fp"/>
+        <Text
+            ohos:id="$+id:backText"
+            ohos:height="match_parent"
+            ohos:width="65vp"
+            ohos:left_margin="0vp"
+            />
+
+    </DependentLayout>
+
+
+    <TabList
+        ohos:id="$+id:tab_list"
+        ohos:height="36vp"
+        ohos:width="match_parent"
+        ohos:layout_alignment="center"
+        ohos:normal_text_color="#000000"
+        ohos:orientation="horizontal"
+        ohos:selected_tab_indicator_color="#E99020"
+        ohos:selected_tab_indicator_height="2vp"
+        ohos:selected_text_color="#000000"
+        ohos:tab_margin="10vp"
+        ohos:text_alignment="center"
+        ohos:text_size="14fp"
+        />
+
+    <StackLayout
+        ohos:id="$+id:stack_layout"
+        ohos:height="match_parent"
+        ohos:width="match_parent">
+
+        <ohos.agp.components.webengine.WebView
+            ohos:id="$+id:webview"
+            ohos:height="match_parent"
+            ohos:width="match_parent"/>
+    </StackLayout>
+
+
+</DirectionalLayout>

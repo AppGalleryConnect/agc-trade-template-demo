@@ -41,9 +41,9 @@ Serverless低代码开发平台是一个可视化的平台， 打通了HarmonyOS
 ![data_model.png](images/data_model.png)
 使用数据模型
 1. 在DevEco Studio中登录后，打开visual文件，对需要使用数据模型的控件，点击‘Add Data’。
-![visual.png](images/visual.png)
+   ![visual.png](images/visual.png)
 2. 选择一个数据模型，点击submit，DevEco Studio会在同名的js文件中自动生成相应代码，您可以通过在控件上绑定data或者方法实现数据模型的增删改查。
-![bind.png](images/bind.png)
+   ![bind.png](images/bind.png)
 3. Build项目，生成HAP，推送到真机或者模拟器上即可查看效果。
 
 连接器管理与使用同样，在AppGallery Connect云控制台创建连接器以后，能够在DevEco Studio端使用定义好的连接器。

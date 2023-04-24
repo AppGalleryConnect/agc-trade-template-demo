@@ -2,7 +2,7 @@
   "string": [
     {
       "name": "entry_MainAbility",
-      "value": "entry_MainAbility"
+      "value": "景区模板"
     },
     {
       "name": "mainability_description",
@@ -11,6 +11,22 @@
     {
       "name": "widget_ability_description",
       "value": "This is a WidgetAbility"
+    },
+    {
+      "name": "entry_MapAbility",
+      "value": "entry_MapAbility"
+    },
+    {
+      "name": "entry_PayAbility",
+      "value": "entry_PayAbility"
+    },
+    {
+      "name": "alipay_appid",
+      "value": ""
+    },
+    {
+      "name": "alipay_rsa_private2",
+      "value": ""
     }
   ]
 }

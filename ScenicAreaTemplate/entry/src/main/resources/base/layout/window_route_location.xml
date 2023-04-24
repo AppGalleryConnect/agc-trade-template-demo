@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="232vp"
+    ohos:width="match_parent"
+    ohos:bottom_margin="4vp"
+    ohos:left_padding="12vp"
+    ohos:orientation="vertical"
+    ohos:right_margin="9vp"
+    ohos:top_padding="10vp">
+
+    <Text
+        ohos:id="$+id:text"
+        ohos:height="14vp"
+        ohos:width="match_content"
+        ohos:bottom_margin="4vp"
+        ohos:right_of="$id:image_left"
+        ohos:text="全部游览路线"
+        ohos:text_color="#000000"
+        ohos:text_size="10fp"/>
+
+    <ListContainer
+        ohos:id="$+id:list_container_route"
+        ohos:height="204vp"
+        ohos:width="match_parent"/>
+</DirectionalLayout>

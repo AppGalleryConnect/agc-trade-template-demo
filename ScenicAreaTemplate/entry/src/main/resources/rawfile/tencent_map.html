@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body onload="initMap()">
+
+  <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+  <link rel="stylesheet" type="text/css" href="./agconnect-style.css">
+
+  <div id="container"></div>
+  <div class="tour-route-location" onclick="route_location()">
+    <img src="./tour_route.png" width="18px">
+  </div>
+  <div class="icon-location" onclick="locate()">
+    <img src="./location.png" width="18px">
+  </div>
+
+  <div class="voice" onclick="voice_explain()">
+    <div class="voice-left">
+      <img src="./talk_listen.png">
+      <div style="font-size:12px">边走边听</div>
+    </div>
+    <div class="voice-right">
+      <img src="./voice_explain.png">
+      <div style="font-size:12px">景区讲解</div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var map, control;
+    var infoWindowArray = new Array();
+    var polylineLayer;
+    function initMap() {
+      // 初始位置
+      var center = new TMap.LatLng(31.983363, 118.767532);
+      //初始化地图
+      map = new TMap.Map("container", {
+        zoom: 16,//设置地图缩放级别
+        rotatable: false, //禁止旋转角度
+        center: center, // 设置地图中心点坐标
+      });
+
+      // 获取缩放控件实例
+      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM)) { // 如果map上不存在该控件则直接返回
+        map.removeControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM);
+      }
+
+      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ROTATION)) { // 如果map上不存在该控件则直接返回
+        map.removeControl(TMap.constants.DEFAULT_CONTROL_ID.ROTATION);
+      }
+    }
+
+    function locate() {
+      if (window.JsCallbackToApp_locate && window.JsCallbackToApp_locate.call) {
+        var result = JsCallbackToApp_locate.call("request latest location");
+        console.info("----------:" + result);
+        var resultObj = JSON.parse(result);
+        changeCenter(resultObj?.latitude, resultObj?.longitude);
+      }
+    }
+
+    function changeCenter(lat, lng) {
+      if (!isNaN(lat) && !isNaN(lng)) {
+        map.setCenter(new TMap.LatLng(lat, lng));
+        map.setZoom(16);
+      } else {
+        console.info("changeCenter----------lat or lng is nan");
+      }
+    }
+
+    function route_location() {
+      if (window.JsCallbackToApp_routeLocation && window.JsCallbackToApp_routeLocation.call) {
+        var result = JsCallbackToApp_routeLocation.call("request route location");
+      }
+    }
+
+    function voice_explain() {
+      if (window.JsCallbackToApp_voiceExplain && window.JsCallbackToApp_voiceExplain.call) {
+        var result = JsCallbackToApp_voiceExplain.call("request voice explain");
+      }
+    }
+
+    function drawRoute(poiList) {
+      close();
+      var latLngArray = new Array();
+      if (poiList && poiList.length > 0) {
+        poiList.forEach((poi) => {
+          latLngArray.push(new TMap.LatLng(poi.latitude, poi.longitude));
+        });
+      }
+      polylineLayer = new TMap.MultiPolyline({
+        map: map,
+        styles: {
+          'style_line': new TMap.PolylineStyle({
+            'color': '#E99020',
+            'width': 3,
+            'borderWidth': 5,
+            'borderColor': '#FFF',
+            'lineCap': 'butt',
+            'dashArray': [10, 10]
+          })
+        },
+        geometries: [
+          {
+            'id': 'pl_id',
+            'styleId': 'style_line',
+            'paths': latLngArray
+          }
+        ]
+      });
+
+      // 跳转到第一个点为中心点
+      map.setCenter(latLngArray[0]);
+
+      for (var i = 0; i < latLngArray.length; i++) {
+        var infoWindow = new TMap.InfoWindow({
+          enableCustom: true,
+          map: map,
+          position: latLngArray[i],
+          offset: { x: 0, y: 35 },
+          content: `<div><div class='info-location-router'>
+          <div class='router-circle'>${i + 1}</div>
+          <div class='router-name'>${poiList[i].name}</div>
+        </div></div>`
+        });
+        infoWindowArray.push(infoWindow);
+      }
+    }
+
+    function refreshPoi(poiList) {
+      close();
+      if (poiList && poiList.length > 0) {
+        poiList.forEach((poi) => {
+          var image = `./${poi.picType}.png`;
+          var infoWindow = new TMap.InfoWindow({
+            enableCustom: true,
+            map: map,
+            position: new TMap.LatLng(poi.latitude, poi.longitude),
+            content: `<div><div class='info-window-wrap'><img class='info-window' src=${image}></div></div>`
+          });
+          infoWindowArray.push(infoWindow);
+        });
+      }
+    }
+
+    function close() {
+      infoWindowArray.forEach((infoWindow) => {
+        infoWindow?.close();
+      });
+      infoWindowArray = [];
+
+      if (polylineLayer) {
+        polylineLayer.remove("pl_id");
+        polylineLayer = null;
+      }
+    }
+
+  </script>
+</body>
+
+</html>
