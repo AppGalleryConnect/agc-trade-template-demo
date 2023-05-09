@@ -18,9 +18,13 @@ package com.huawei.scenicarea.map.voice;
 
 public class VoiceExplain {
     private String id;
+
     private String name;
+
     private String pictureUrl;
+
     private String playNumber;
+
     private String voiceUrl;
 
     public String getId() {

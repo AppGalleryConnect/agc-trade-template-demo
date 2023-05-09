@@ -17,6 +17,7 @@
 package com.huawei.scenicarea.map;
 
 import com.huawei.agconnect.lowcode.AGConnectLowCode;
+import com.huawei.agconnect.lowcode.internal.beans.DataModelReqParams;
 import com.huawei.agconnect.lowcode.internal.beans.request.DataModelRequest;
 import com.huawei.agconnect.lowcode.internal.beans.response.DataModelResponse;
 import com.huawei.hmf.tasks.HarmonyTask;
@@ -43,9 +44,13 @@ public class PoiController {
 
     private void initData() {
         DataModelRequest request = new DataModelRequest();
-        request.setModelId("1138424092010015297");
+        request.setModelId(MapConfig.MODEL_ID_POI);
         request.setStatus(0);
         request.setMethodName("list");
+        DataModelReqParams params = new DataModelReqParams();
+        params.setOrderBy("orderNumber");
+        params.setOrderType("asc");
+        request.setParams(params);
         HarmonyTask<DataModelResponse> task = AGConnectLowCode.getInstance().callDataModel(request);
         task.addOnCompleteListener(new OnHarmonyCompleteListener<DataModelResponse>() {
             @Override

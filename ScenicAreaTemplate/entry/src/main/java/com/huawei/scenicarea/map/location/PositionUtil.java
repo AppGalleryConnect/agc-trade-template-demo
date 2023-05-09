@@ -16,6 +16,12 @@
 
 package com.huawei.scenicarea.map.location;
 
+import com.huawei.agconnect.https.HttpsKit;
+import com.huawei.agconnect.https.HttpsResult;
+import com.huawei.agconnect.https.Method;
+import com.huawei.agconnect.https.annotation.Url;
+import com.huawei.hmf.tasks.OnCompleteListener;
+import com.huawei.hmf.tasks.Task;
 import com.huawei.scenicarea.map.IWebBridge;
 import ohos.aafwk.ability.LifecycleObserver;
 import ohos.aafwk.content.Intent;
@@ -26,13 +32,27 @@ import ohos.location.Location;
 import ohos.location.Locator;
 import ohos.location.LocatorCallback;
 import ohos.location.RequestParam;
+import ohos.utils.zson.ZSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PositionUtil extends LifecycleObserver implements LocatorCallback {
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, PositionUtil.class.getName());
+
     private static Locator locator;
 
     private static final PositionUtil INSTANCE = new PositionUtil();
+
     private Location location = new Location(0.0, 0.0);
+
+    public AGCLocation agcLocation = new AGCLocation(0.0, 0.0);
+
+    private HttpsKit httpsKit = new HttpsKit.Builder().build();
+
+    private int reportNum = 2;
+
+    private static final String TX_LOCATION_URL_KEY = "EEMBZ-AGRRQ-44I5I-4EYUD-CY6X5-V6B74";
 
     public static PositionUtil getInstance() {
         return INSTANCE;
@@ -60,13 +80,19 @@ public class PositionUtil extends LifecycleObserver implements LocatorCallback {
     }
 
     public AGCLocation getLatestLocation() {
-        return new AGCLocation(location.getLatitude(), location.getLongitude());
+        return agcLocation;
     }
 
     @Override
     public void onLocationReport(Location location) {
         HiLog.info(TAG, "onLocationReport：");
-        this.location = location;
+        reportNum++;
+        //大概5s返回一次数据 10s转换一次 如果位置不变不转换 第一次强制转换
+        if (reportNum >= 2 && !(location.getLatitude() == this.location.getLatitude() && location.getLongitude() == this.location.getLongitude())) {
+            transformLocation(location.getLatitude(), location.getLongitude());
+            reportNum = 0;
+            this.location = location;
+        }
     }
 
     @Override
@@ -79,9 +105,31 @@ public class PositionUtil extends LifecycleObserver implements LocatorCallback {
 
     }
 
+    private void transformLocation(double lat, double lng) {
+        AGCLocationRequest request = new AGCLocationRequest(lat, lng);
+        Method method = new Method.Get(request);
+        final Task<HttpsResult> task = httpsKit.create().execute(method);
+        task.addOnCompleteListener(new OnCompleteListener<HttpsResult>() {
+            @Override
+            public void onComplete(Task<HttpsResult> task) {
+                if (task.isSuccessful()) {
+                    String string = task.getResult().getResponse().toString();
+                    TXLocation txLocation = ZSONObject.stringToClass(string, TXLocation.class);
+                    ArrayList locationList = txLocation.getLocations();
+                    if (!locationList.isEmpty()) {
+                        HashMap locationMap = (HashMap) locationList.get(0);
+                        double lat = (double) locationMap.get("lat");
+                        double lng = (double) locationMap.get("lng");
+                        agcLocation.setLatitudeLongitude(lat, lng);
+                    }
+                }
+            }
+        });
+    }
+
     public static class AGCLocation extends Location implements IWebBridge.JsResult {
-        private final double latitude;
-        private final double longitude;
+        private double latitude;
+        private double longitude;
 
         public AGCLocation(double latitude, double longitude) throws IllegalArgumentException {
             super(latitude, longitude);
@@ -96,6 +144,26 @@ public class PositionUtil extends LifecycleObserver implements LocatorCallback {
 
         public boolean isValid() {
             return !Double.isNaN(latitude) && !Double.isNaN(longitude);
+        }
+
+        public void setLatitudeLongitude(double latitude, double longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+        }
+    }
+
+    private class AGCLocationRequest {
+
+        private double latitude;
+
+        private double longitude;
+        @Url
+        private String url = "";
+
+        public AGCLocationRequest(double latitude, double longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
+            this.url = "https://apis.map.qq.com/ws/coord/v1/translate?locations=" + this.latitude + "," + this.longitude + "&type=1&key=" + TX_LOCATION_URL_KEY;
         }
     }
 }

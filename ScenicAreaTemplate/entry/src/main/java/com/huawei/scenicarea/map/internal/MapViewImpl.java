@@ -95,17 +95,15 @@ public class MapViewImpl implements IMapView {
                     if (TextTool.isNullOrEmpty(path)) {
                         return super.processResourceRequest(webview, request);
                     }
-                    HiLog.info(TAG, "path：" + path);
                     if (path.startsWith(rawFile)) {
                         // 根据自定义规则访问资源文件
                         String rawFilePath = "entry/resources/rawfile/" + path.replace(rawFile, "");
-                        HiLog.info(TAG, "rawFilePath：" + rawFilePath);
                         String mimeType = URLConnection.guessContentTypeFromName(rawFilePath);
                         try {
                             Resource resource = context.getResourceManager().getRawFileEntry(rawFilePath).openRawFile();
                             return new ResourceResponse(mimeType, resource, null);
                         } catch (IOException e) {
-                            HiLog.info(TAG, "open raw file failed：" + e.getMessage());
+                            HiLog.info(TAG, "open raw file failed " + e.getMessage());
                         }
                     }
                 }

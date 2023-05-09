@@ -22,9 +22,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-
 public final class JSONEncodeUtil {
-   
+
     public static String toJson(final Object obj) throws Exception {
         if (obj == null) {
             return "null";
@@ -291,14 +290,13 @@ public final class JSONEncodeUtil {
                 continue;
             }
             if (!field.isAccessible()) {
-                AccessController.doPrivileged(
-                    new PrivilegedAction() {
-                        @Override
-                        public Object run() {
-                            field.setAccessible(true);
-                            return null;
-                        }
-                    });
+                AccessController.doPrivileged(new PrivilegedAction() {
+                    @Override
+                    public Object run() {
+                        field.setAccessible(true);
+                        return null;
+                    }
+                });
             }
             sb.append(toJson(key));
             sb.append(':');

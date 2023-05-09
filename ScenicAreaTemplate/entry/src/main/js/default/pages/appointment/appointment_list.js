@@ -21,9 +21,9 @@ import { checkUserLoginStatus } from "../utils/auth_util"
 
 export default {
     // Start of auto-generated Super Visual code. DO NOT MODIFY
-    refreshlistappoint_list_miabh() {
+    refreshlistappoint_list_7x0vv() {
         agconnect.lowCode().callDataModel({
-            modelId: "1133442411536640577", methodName: "list", status: 0, params: {
+            modelId: "1138428012828608641", methodName: "list", status: 0, params: {
                 orderBy: "no", orderType: "asc"
             }
         }).then(res => {
@@ -31,7 +31,7 @@ export default {
             if (ret.code !== 0) {
                 throw new Error(JSON.stringify(ret));
             }
-            this.listappoint_list_miabh = res.getValue().data.records;
+            this.listappoint_list_7x0vv = res.getValue().data.records;
             ;
         }).catch(e => {
             ;
@@ -40,7 +40,7 @@ export default {
     // End of auto-generated Super Visual code. DO NOT MODIFY
     data: {
         // Start of auto-generated Super Visual code. DO NOT MODIFY
-        listappoint_list_miabh: [{
+        listappoint_list_7x0vv: [{
             id: "",
             createTime: "",
             updateTime: "",
@@ -53,24 +53,28 @@ export default {
             introduction: "",
             instruction: "",
             explanation: "",
-            pic: ""
+            pic: "",
+            picture: ""
         }],
         // End of auto-generated Super Visual code. DO NOT MODIFY
-        title: "Hello World"
     },
     onInit() {
         // Start of auto-generated Super Visual code. DO NOT MODIFY
-        this.refreshlistappoint_list_miabh();
+        this.refreshlistappoint_list_7x0vv();
         // End of auto-generated Super Visual code. DO NOT MODIFY
-
-
+        this.listappoint_list_7x0vv = [];
     },
-    startBookTicket() {
+    startAppointment(e) {
         checkUserLoginStatus((user) => {
             router.push({
-                uri: 'pages/ticket/ticket_appointment',
+                uri: 'pages/appointment/appointment_confirm',
                 params: {
-                    uid: user.getUid()
+                    uid: user.getUid(),
+                    appointmentInfo: {
+                        name: e.target.attr.data.name,
+                        pic: e.target.attr.data.pic,
+                        scenicAreaId: e.target.attr.data.id
+                    }
                 }
             });
         }, () => {
@@ -78,5 +82,8 @@ export default {
                 uri: 'pages/mine/mine_login',
             });
         });
-    }
+    },
+    onBackClick() {
+        router.back();
+    },
 }

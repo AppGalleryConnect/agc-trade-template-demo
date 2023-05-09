@@ -17,6 +17,7 @@
 package com.huawei.scenicarea.map.voice;
 
 import com.huawei.scenicarea.ResourceTable;
+
 import ohos.aafwk.ability.LifecycleObserver;
 import ohos.agp.components.Component;
 import ohos.agp.components.LayoutScatter;
@@ -32,9 +33,13 @@ import static ohos.agp.components.ComponentContainer.LayoutConfig.MATCH_CONTENT;
 
 public class VoiceExplainDialog extends LifecycleObserver implements VoiceExplainProvider.PlayListener {
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, VoiceExplainDialog.class.getName());
+
     private final Context context;
+
     private CommonDialog commonDialog;
+
     private AudioPlayer audioPlayer;
+
     VoiceDataModel dataModel;
 
     public VoiceExplainDialog(Context context) {
@@ -50,9 +55,11 @@ public class VoiceExplainDialog extends LifecycleObserver implements VoiceExplai
         }
         List<VoiceExplain> voiceExplains = dataModel.getVoices();
         context.getUITaskDispatcher().asyncDispatch(() -> {
-            Component container = LayoutScatter.getInstance(context).parse(ResourceTable.Layout_window_vocie_explain, null, false);
+            Component container = LayoutScatter.getInstance(context)
+                .parse(ResourceTable.Layout_window_vocie_explain, null, false);
             commonDialog = new CommonDialog(context);
-            ListContainer listContainer = (ListContainer) container.findComponentById(ResourceTable.Id_list_container_voice);
+            ListContainer listContainer = (ListContainer) container.findComponentById(
+                ResourceTable.Id_list_container_voice);
             VoiceExplainProvider provider = new VoiceExplainProvider(voiceExplains, context, this);
             listContainer.setItemProvider(provider);
             commonDialog.setContentCustomComponent(container);

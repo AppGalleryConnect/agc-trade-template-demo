@@ -34,12 +34,7 @@
     <remote-repository>
       <option name="id" value="maven" />
       <option name="name" value="maven" />
-      <option name="url" value="https://mirrors.huaweicloud.com/repository/maven/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="BintrayJCenter" />
-      <option name="name" value="BintrayJCenter" />
-      <option name="url" value="https://jcenter.bintray.com/" />
+      <option name="url" value="file:/$PROJECT_DIR$/../ohos-java-new/AGC-Client-Harmony/repo/" />
     </remote-repository>
   </component>
 </project>

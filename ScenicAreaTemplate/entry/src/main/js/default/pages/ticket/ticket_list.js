@@ -21,17 +21,17 @@ import { checkUserLoginStatus } from "../utils/auth_util"
 
 export default {
     // Start of auto-generated Super Visual code. DO NOT MODIFY
-    refreshlistticket_list_1fzlm() {
+    refreshlistticket_list_xf3ev() {
         agconnect.lowCode().callDataModel({
-            modelId: "1134565724640036993", methodName: "list", status: 0, params: {
-                orderBy: "no", orderType: "asc", conditions: []
+            modelId: "1138486647738910849", methodName: "list", status: 0, params: {
+                orderBy: "no", orderType: "asc"
             }
         }).then(res => {
             const ret = res.getValue().ret;
             if (ret.code !== 0) {
                 throw new Error(JSON.stringify(ret));
             }
-            this.listticket_list_1fzlm = res.getValue().data.records;
+            this.listticket_list_xf3ev = res.getValue().data.records;
             ;
         }).catch(e => {
             ;
@@ -40,7 +40,7 @@ export default {
     // End of auto-generated Super Visual code. DO NOT MODIFY
     data: {
         // Start of auto-generated Super Visual code. DO NOT MODIFY
-        listticket_list_1fzlm: [{
+        listticket_list_xf3ev: [{
             id: "",
             createTime: "",
             updateTime: "",
@@ -52,23 +52,34 @@ export default {
             price: "",
             introduction: "",
             instruction: "",
-            no: 0
+            no: 0,
+            kids_price: "",
+            student_price: "",
+            picture: ""
         }],
         // End of auto-generated Super Visual code. DO NOT MODIFY
-        title: "Hello World"
     },
     onInit() {
         // Start of auto-generated Super Visual code. DO NOT MODIFY
-        this.refreshlistticket_list_1fzlm();
+        this.refreshlistticket_list_xf3ev();
         // End of auto-generated Super Visual code. DO NOT MODIFY
 
+
     },
-    startBuyTicket() {
+    startBuyTicket(e) {
         checkUserLoginStatus((user) => {
             router.push({
                 uri: 'pages/ticket/ticket_buy',
                 params: {
-                    uid: user.getUid()
+                    uid: user.getUid(),
+                    ticketInfo: {
+                        name: e.target.attr.data.name,
+                        pic: e.target.attr.data.pic,
+                        scenicAreaId: e.target.attr.data.id,
+                        price: e.target.attr.data.price,
+                        kidsPrice: e.target.attr.data.kids_price,
+                        studentPrice: e.target.attr.data.student_price,
+                    }
                 }
             });
         }, () => {
@@ -76,5 +87,8 @@ export default {
                 uri: 'pages/mine/mine_login',
             });
         });
+    },
+    onBackClick() {
+        router.back();
     },
 }

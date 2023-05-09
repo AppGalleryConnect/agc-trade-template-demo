@@ -17,6 +17,7 @@
 package com.huawei.scenicarea.map.voice;
 
 import com.huawei.scenicarea.ResourceTable;
+
 import ohos.agp.components.BaseItemProvider;
 import ohos.agp.components.Component;
 import ohos.agp.components.ComponentContainer;
@@ -26,13 +27,16 @@ import ohos.agp.components.LayoutScatter;
 import ohos.agp.components.Text;
 import ohos.app.Context;
 import ohos.utils.net.Uri;
+
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class VoiceExplainProvider extends BaseItemProvider {
     private final List<VoiceExplain> list;
+
     private final Context context;
+
     private final PlayListener playListener;
 
     public VoiceExplainProvider(List<VoiceExplain> list, Context context, PlayListener playListener) {
@@ -96,9 +100,13 @@ public class VoiceExplainProvider extends BaseItemProvider {
 
     public static class Holder {
         Image image;
+
         Text nameText;
+
         Text playNumberText;
+
         DirectionalLayout layout;
+
         Text playText;
 
         public Holder(Component component) {
@@ -117,7 +125,9 @@ public class VoiceExplainProvider extends BaseItemProvider {
     }
 
     public enum PlayMode {
-        PLAY("播放"), STOP("停止");
+        PLAY("播放"),
+        STOP("停止");
+
         private final String mode;
 
         PlayMode(String mode) {

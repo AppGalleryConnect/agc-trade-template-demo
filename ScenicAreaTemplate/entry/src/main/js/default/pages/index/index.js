@@ -21,6 +21,7 @@ import router from '@system.router';
 import "@hw-agconnect/auth-harmony";
 import { checkUserLoginStatus } from '../utils/auth_util';
 import { getFileUrls } from '../utils/file_util';
+import { phoneAnonymous } from "../utils/anonymous_util"
 
 const tabs_info_map = [{
     "active": {
@@ -58,10 +59,45 @@ const tabs_info_map = [{
 }];
 
 export default {
+
     // Start of auto-generated Super Visual code. DO NOT MODIFY
+    refreshlistappoint_list_7x0vv() {
+        agconnect.lowCode().callDataModel({
+            modelId: "1138428012828608641", methodName: "list", status: 0, params: {
+                orderBy: "no", orderType: "asc"
+            }
+        }).then(res => {
+            const ret = res.getValue().ret;
+            if (ret.code !== 0) {
+                throw new Error(JSON.stringify(ret));
+            }
+            this.listappoint_list_7x0vv = res.getValue().data.records;
+            ;
+        }).catch(e => {
+            ;
+        });
+    },
+    refreshlistbanner_2o34f() {
+        agconnect.lowCode().callDataModel({
+            modelId: "1138484559948597377", methodName: "list", status: 0, params: {
+                orderBy: "no", orderType: "asc"
+            }
+        }).then(res => {
+            const ret = res.getValue().ret;
+            if (ret.code !== 0) {
+                throw new Error(JSON.stringify(ret));
+            }
+            this.listbanner_2o34f = res.getValue().data.records;
+            this.getPictureUrls(res);
+        }).catch(e => {
+            ;
+        });
+    },
     refreshlistnotice_v9w2j() {
         agconnect.lowCode().callDataModel({
-            modelId: "1138483804319565953", methodName: "list", status: 0, params: {}
+            modelId: "1138483804319565953", methodName: "list", status: 0, params: {
+                orderBy: "no", orderType: "desc"
+            }
         }).then(res => {
             const ret = res.getValue().ret;
             if (ret.code !== 0) {
@@ -89,7 +125,9 @@ export default {
     },
     refreshlistconsolt_dxc9z() {
         agconnect.lowCode().callDataModel({
-            modelId: "1138481656676534401", methodName: "list", status: 0, params: {}
+            modelId: "1138481656676534401", methodName: "list", status: 0, params: {
+                orderBy: "no", orderType: "asc"
+            }
         }).then(res => {
             const ret = res.getValue().ret;
             if (ret.code !== 0) {
@@ -101,43 +139,38 @@ export default {
             ;
         });
     },
-    refreshlistbanner_2o34f() {
-        agconnect.lowCode().callDataModel({
-            modelId: "1138484559948597377", methodName: "list", status: 0, params: {}
-        }).then(res => {
-            const ret = res.getValue().ret;
-            if (ret.code !== 0) {
-                throw new Error(JSON.stringify(ret));
-            }
-            this.listbanner_2o34f = res.getValue().data.records;
-            this.getPictureUrls(res);
-        }).catch(e => {
-            ;
-        });
-    },
-    // End of auto-generated Super Visual code. DO NOT MODIFY
-    // Start of auto-generated Super Visual code. DO NOT MODIFY
-    refreshlistappoint_list_miabh() {
-        agconnect.lowCode().callDataModel({
-            modelId: "1133442411536640577", methodName: "list", status: 0, params: {
-                orderBy: "no", orderType: "asc"
-            }
-        }).then(res => {
-            const ret = res.getValue().ret;
-            if (ret.code !== 0) {
-                throw new Error(JSON.stringify(ret));
-            }
-            this.listappoint_list_miabh = res.getValue().data.records;
-            ;
-        }).catch(e => {
-            ;
-        });
-    },
     // End of auto-generated Super Visual code. DO NOT MODIFY
 
     // Home logic
     data: {
+
         // Start of auto-generated Super Visual code. DO NOT MODIFY
+        listappoint_list_7x0vv: [{
+            id: "",
+            createTime: "",
+            updateTime: "",
+            owner: "",
+            createBy: "",
+            updateBy: "",
+            no: 0,
+            name: "",
+            price: "",
+            introduction: "",
+            instruction: "",
+            explanation: "",
+            pic: "",
+            picture: ""
+        }],
+        listbanner_2o34f: [{
+            id: "",
+            createTime: "",
+            updateTime: "",
+            owner: "",
+            createBy: "",
+            updateBy: "",
+            no: 0,
+            picturePath: ""
+        }],
         listnotice_v9w2j: [{
             id: "",
             createTime: "",
@@ -168,33 +201,6 @@ export default {
             no: 0,
             pictureUrl: ""
         }],
-        listbanner_2o34f: [{
-            id: "",
-            createTime: "",
-            updateTime: "",
-            owner: "",
-            createBy: "",
-            updateBy: "",
-            no: 0,
-            picturePath: ""
-        }],
-        // End of auto-generated Super Visual code. DO NOT MODIFY
-        // Start of auto-generated Super Visual code. DO NOT MODIFY
-        listappoint_list_miabh: [{
-            id: "",
-            createTime: "",
-            updateTime: "",
-            owner: "",
-            createBy: "",
-            updateBy: "",
-            no: 0,
-            name: "",
-            price: "",
-            introduction: "",
-            instruction: "",
-            explanation: "",
-            pic: ""
-        }],
         // End of auto-generated Super Visual code. DO NOT MODIFY
         tabs_info: [
             {
@@ -213,7 +219,6 @@ export default {
                 "visibility": false
             },
         ],
-        title: "Hello World",
         userInfo: {
             url: "",
             userName: "",
@@ -242,7 +247,7 @@ export default {
 
         // 用户没有头像的话，给个默认的头像
         this.userInfo.url = user.getPhotoUrl() ? user.getPhotoUrl() : "/media/mine/mine_active.png";
-        this.userInfo.userName = user.getDisplayName();
+        this.userInfo.userName = user.getDisplayName() ? user.getDisplayName() : phoneAnonymous(user.getPhone());
         this.userInfo.showUnLogin = false;
         this.userInfo.showLogined = true;
     },
@@ -313,29 +318,7 @@ export default {
             }
         })
     },
-    routerToAppointmentResult() {
-        router.push({
-            uri: 'pages/ticket/ticket_appointment_result',
-            params: {
-                result_data: {
-                    retCode: 1,
-                    date_period: "明日 2023-04-23 10:00-14:00"
-                }
-            }
-        })
-    },
-    routerToBuyResult() {
-        router.push({
-            uri: 'pages/ticket/ticket_buy_result',
-            params: {
-                result_data: {
-                    retCode: 0,
-                    date_period: "明日 2023-04-22 09:00-14:00",
-                    ticket_data: "test"
-                }
-            }
-        })
-    },
+
     loginOut() {
         console.log("loginOut");
         agconnect.auth().signOut();
@@ -358,6 +341,7 @@ export default {
         this.tableIndex = 1;
     },
     onMineClick() {
+        this.checkUserLogin();
         this.updateByIndex(2);
         this.tableIndex = 2;
     },
@@ -375,15 +359,20 @@ export default {
     },
 
     onInit() {
+
         // Start of auto-generated Super Visual code. DO NOT MODIFY
+        this.refreshlistappoint_list_7x0vv();
+        this.refreshlistbanner_2o34f();
         this.refreshlistnotice_v9w2j();
         this.refreshlistintroduce_s6s17();
         this.refreshlistconsolt_dxc9z();
-        this.refreshlistbanner_2o34f();
         // End of auto-generated Super Visual code. DO NOT MODIFY
-        // Start of auto-generated Super Visual code. DO NOT MODIFY
-        this.refreshlistappoint_list_miabh();
-        // End of auto-generated Super Visual code. DO NOT MODIFY
+        this.updateByIndex(this.tableIndex);
+        if (this.tableIndex === 2) {
+            this.checkUserLogin();
+        }
+    },
+    checkUserLogin() {
         agconnect.auth().getCurrentUser().then(user => {
             if (user) {
                 this.showLogined(user);
@@ -393,6 +382,27 @@ export default {
         }).catch(error => {
             this.showUnLogin();
         })
-        this.updateByIndex(this.tableIndex);
     },
+    startAppointment(e) {
+        checkUserLoginStatus((user) => {
+            router.push({
+                uri: 'pages/appointment/appointment_confirm',
+                params: {
+                    uid: user.getUid(),
+                    appointmentInfo: {
+                        name: e.target.attr.data.name,
+                        pic: e.target.attr.data.pic,
+                        scenicAreaId: e.target.attr.data.id
+                    }
+                }
+            });
+        }, () => {
+            router.push({
+                uri: 'pages/mine/mine_login',
+            });
+        });
+    },
+    gotoPrivacyStatementDetail() {
+        console.log("gotoPrivacyStatementDetail");
+    }
 }

@@ -22,11 +22,11 @@
     },
     {
       "name": "alipay_appid",
-      "value": ""
+      "value": "your alipay_appid"
     },
     {
       "name": "alipay_rsa_private2",
-      "value": ""
+      "value": "your alipay_rsa_private2"
     }
   ]
 }

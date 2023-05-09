@@ -22,6 +22,8 @@ import com.huawei.agconnect.lowcode.internal.beans.response.DataModelResponse;
 import com.huawei.hmf.tasks.HarmonyTask;
 import com.huawei.hmf.tasks.HarmonyTaskCompletionSource;
 import com.huawei.hmf.tasks.HarmonyTasks;
+import com.huawei.scenicarea.map.MapConfig;
+
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 
@@ -33,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 public class VoiceDataModel {
     private static final HiLogLabel TAG = new HiLogLabel(HiLog.DEBUG, 0x0, VoiceDataModel.class.getName());
+
     private volatile List<VoiceExplain> voiceExplains;
 
     public VoiceDataModel() {
@@ -42,7 +45,7 @@ public class VoiceDataModel {
     public HarmonyTask<List<VoiceExplain>> request() {
         HarmonyTaskCompletionSource<List<VoiceExplain>> source = new HarmonyTaskCompletionSource<>();
         DataModelRequest request = new DataModelRequest();
-        request.setModelId("1138416803509225601");
+        request.setModelId(MapConfig.MODEL_ID_VOICE_EXPLAIN);
         request.setStatus(0);
         request.setMethodName("list");
         HarmonyTask<DataModelResponse> task = AGConnectLowCode.getInstance().callDataModel(request);

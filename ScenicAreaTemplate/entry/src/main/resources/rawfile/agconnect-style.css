@@ -52,8 +52,8 @@
      position: fixed;
      width: 34px;
      height: 34px;
-     background: #FFFFFF;
-     border-radius: 8px;
+     background-image: url(whitearrow.png);
+     background-size:100% 100%;
  }
 
  .info-window {

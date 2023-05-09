@@ -23,8 +23,8 @@ import com.huawei.agconnect.lowcode.internal.beans.response.DataModelResponse;
 import com.huawei.hmf.tasks.HarmonyTask;
 import com.huawei.hmf.tasks.HarmonyTaskCompletionSource;
 import com.huawei.hmf.tasks.HarmonyTasks;
+import com.huawei.scenicarea.map.MapConfig;
 import com.huawei.scenicarea.map.PoiInfo;
-import com.huawei.scenicarea.map.voice.VoiceExplain;
 import ohos.hiviewdfx.HiLog;
 import ohos.hiviewdfx.HiLogLabel;
 import ohos.utils.zson.ZSONArray;
@@ -46,7 +46,7 @@ public class RouteDataModel {
     public HarmonyTask<List<Route>> request() {
         HarmonyTaskCompletionSource<List<Route>> source = new HarmonyTaskCompletionSource<>();
         DataModelRequest request = new DataModelRequest();
-        request.setModelId("1138415256238868609");
+        request.setModelId(MapConfig.MODEL_ID_ROUTE);
         request.setStatus(0);
         request.setMethodName("list");
         HarmonyTask<DataModelResponse> task = AGConnectLowCode.getInstance().callDataModel(request);

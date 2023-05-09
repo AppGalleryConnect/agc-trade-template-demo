@@ -78,7 +78,7 @@
       "customizeData": [
         {
           "name": "com.huawei.hms.client.appid",
-          "value": ""
+          "value": "replace me with your Client ID"
         },
         {
           "extra": "",
@@ -94,16 +94,15 @@
         "pages": [
           "pages/index/index",
           "pages/pay/payment/payment",
-          "pages/mine/mine",
           "pages/mine/mine_login",
           "pages/mine/mine_suggestion",
           "pages/mine/mine_appointment",
           "pages/mine/mine_orders",
           "pages/ticket/ticket_buy",
-          "pages/ticket/ticket_appointment",
-          "pages/ticket/ticket_appointment_result",
           "pages/ticket/ticket_buy_result",
           "pages/appointment/appointment_list",
+          "pages/appointment/appointment_confirm",
+          "pages/appointment/appointment_result",
           "pages/ticket/ticket_list"
         ],
         "name": "default",

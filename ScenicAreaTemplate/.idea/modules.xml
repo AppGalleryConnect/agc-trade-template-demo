@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScenicAreaDemo.iml" filepath="$PROJECT_DIR$/.idea/modules/ScenicAreaDemo.iml" group="ScenicAreaDemo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entry/entry.iml" filepath="$PROJECT_DIR$/.idea/modules/entry/entry.iml" group="ScenicAreaDemo/entry" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScenicArea.iml" filepath="$PROJECT_DIR$/.idea/modules/ScenicArea.iml" group="ScenicArea" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/entry/entry.iml" filepath="$PROJECT_DIR$/.idea/modules/entry/entry.iml" group="ScenicArea/entry" />
     </modules>
   </component>
 </project>

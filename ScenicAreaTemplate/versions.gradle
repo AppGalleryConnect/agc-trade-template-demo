@@ -1,0 +1,3 @@
+project.ext {
+    agcSdkVersion = '1.5.0.300'
+}

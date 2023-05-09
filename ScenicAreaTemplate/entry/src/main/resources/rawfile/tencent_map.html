@@ -2,8 +2,7 @@
 <html lang="en">
 
 <body onload="initMap()">
-
-  <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+  <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&key=EEMBZ-AGRRQ-44I5I-4EYUD-CY6X5-V6B74"></script>
   <link rel="stylesheet" type="text/css" href="./agconnect-style.css">
 
   <div id="container"></div>
@@ -29,22 +28,45 @@
     var map, control;
     var infoWindowArray = new Array();
     var polylineLayer;
+    var markerLayer;
     function initMap() {
       // 初始位置
       var center = new TMap.LatLng(31.983363, 118.767532);
       //初始化地图
       map = new TMap.Map("container", {
         zoom: 16,//设置地图缩放级别
+        viewMode: '2D',
         rotatable: false, //禁止旋转角度
+        pitchable: false, //禁止俯仰角度
         center: center, // 设置地图中心点坐标
       });
 
+      // 隐藏默认的控件
+      hideControl();
+
+      //创建个性化图层
+      createCustomLayer();
+    }
+
+    function createCustomLayer() {
+      TMap.ImageTileLayer.createCustomLayer({
+        layerId: '6446252f6632',
+        map: map
+      }).then(customLayer => {
+        if (customLayer) {
+          // 成功创建个性化图层
+          console.log('done');
+        } 
+      });
+    }
+
+
+    function hideControl() {
       // 获取缩放控件实例
-      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM)) { // 如果map上不存在该控件则直接返回
+      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM)) {
         map.removeControl(TMap.constants.DEFAULT_CONTROL_ID.ZOOM);
       }
-
-      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ROTATION)) { // 如果map上不存在该控件则直接返回
+      if (map.getControl(TMap.constants.DEFAULT_CONTROL_ID.ROTATION)) {
         map.removeControl(TMap.constants.DEFAULT_CONTROL_ID.ROTATION);
       }
     }
@@ -52,8 +74,10 @@
     function locate() {
       if (window.JsCallbackToApp_locate && window.JsCallbackToApp_locate.call) {
         var result = JsCallbackToApp_locate.call("request latest location");
-        console.info("----------:" + result);
         var resultObj = JSON.parse(result);
+        if (resultObj?.latitude == 0 && resultObj?.longitude == 0) {
+          return;
+        }
         changeCenter(resultObj?.latitude, resultObj?.longitude);
       }
     }
@@ -61,9 +85,32 @@
     function changeCenter(lat, lng) {
       if (!isNaN(lat) && !isNaN(lng)) {
         map.setCenter(new TMap.LatLng(lat, lng));
-        map.setZoom(16);
-      } else {
-        console.info("changeCenter----------lat or lng is nan");
+        if (!markerLayer) {
+          markerLayer = new TMap.MultiMarker({
+            map: map,
+            styles: {
+              "markerStyle": new TMap.MarkerStyle({
+                "width": 25,
+                "height": 35,
+                "src": './mine_location.png',
+                "anchor": { x: 16, y: 32 }
+              })
+            },
+            geometries: [{
+              "id": "1",
+              "styleId": 'markerStyle',
+              "position": new TMap.LatLng(lat, lng)
+            }]
+          });
+        } else {
+          markerLayer.updateGeometries([
+            {
+              "styleId": "markerStyle",
+              "id": "1",
+              "position": new TMap.LatLng(lat, lng),
+            }
+          ]);
+        }
       }
     }
 

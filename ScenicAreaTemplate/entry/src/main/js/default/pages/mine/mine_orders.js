@@ -18,19 +18,23 @@ import "@hw-agconnect/lowcode-harmony";
 import agconnect from "@hw-agconnect/core-harmony";
 import router from '@system.router';
 import { checkUserLoginStatus } from '../utils/auth_util';
+import { getFormatYearMonthDate, getWeekDate } from '../utils/time_util';
+import { ORDER_STATUS } from '../constant/constant';
 
 export default {
     // Start of auto-generated Super Visual code. DO NOT MODIFY
     refreshlistticket_order_9wosb() {
         agconnect.lowCode().callDataModel({
-            modelId: "1138476836657883713", methodName: "list", status: 0, params: {}
+            modelId: "1138476836657883713", methodName: "list", status: 0, params: {
+                orderBy: "createTime", orderType: "desc"
+            }
         }).then(res => {
             const ret = res.getValue().ret;
             if (ret.code !== 0) {
                 throw new Error(JSON.stringify(ret));
             }
             this.listticket_order_9wosb = res.getValue().data.records;
-            ;
+            this.showAction(res);
         }).catch(e => {
             ;
         });
@@ -51,13 +55,29 @@ export default {
             date: "",
             time: "",
             status: "",
-            action: "",
             price: "",
             number: 0,
             totalPrice: "",
-            actualPay: ""
+            actualPay: "",
+            scenicAreaId: ""
         }],
         // End of auto-generated Super Visual code. DO NOT MODIFY
+
+
+        // 0已下单未付款，1已下单已取消，2已下单已付款未使用，3已下单已付款已使用
+        orderList: [],
+        statusMap: {
+            "0": "待付款",
+            "1": "已取消",
+            "2": "待使用",
+            "3": "已使用",
+        },
+        actionMap: {
+            "0": "去支付",
+            "1": "删除订单",
+            "2": "取消订单",
+            "3": "删除订单",
+        },
     },
 
     onInit() {
@@ -65,37 +85,34 @@ export default {
         this.refreshlistticket_order_9wosb();
         // End of auto-generated Super Visual code. DO NOT MODIFY
     },
-
+    onShow() {
+        this.refreshlistticket_order_9wosb();
+    },
+    showAction(res) {
+        this.orderList = [];
+        if (this.listticket_order_9wosb && this.listticket_order_9wosb.length > 0) {
+            this.listticket_order_9wosb.forEach(item => {
+                this.orderList.push(item);
+                this.orderList[this.orderList.length-1].usingStatus = this.getUsingStatus(item.status);
+                this.orderList[this.orderList.length-1].action = this.getAction(item.status);
+            });
+        }
+    },
+    getUsingStatus(status) {
+        return this.statusMap[status];
+    },
+    getAction(status) {
+        return this.actionMap[status];
+    },
     routerToBack() {
         router.back()
     },
 
-    cancelOrDeleteOrder(e) {
+    orderClick(e) {
+        let that = this;
         checkUserLoginStatus(() => {
-            let index = e.target._attr.data;
-            console.log("cancelOrDeleteOrder, index : " + index);
-
-            if (index >= 0 && index < this.listticket_order_9wosb.length) {
-                console.log("cancelOrDeleteOrder id : " + this.listticket_order_9wosb[index].id);
-
-                agconnect.lowCode().callDataModel({
-                    modelId: "1136031342895622721", methodName: "delete", status: 0, params: {
-                        object: {
-                            id: this.listticket_order_9wosb[index].id
-                        }
-                    }
-                }).then(res => {
-                    const ret = res.getValue().ret;
-                    console.log("ret = " + JSON.stringify(ret));
-                    if (ret.code !== 0) {
-                        throw new Error(JSON.stringify(ret));
-                    }
-                    this.refreshlistticket_order_9wosb();
-                }).catch(e => {
-                    this.refreshlistticket_order_9wosb();
-                });
-            } else {
-                console.log("cancelOrDeleteOrder index is Invalid")
+            if (e.target.attr.data.status === ORDER_STATUS.PAID_TOBE_USED) {
+                that.gotoTicketDetailPage(e.target.attr.data);
             }
         }, () => {
             router.push({
@@ -103,4 +120,90 @@ export default {
             })
         });
     },
+
+    orderAction(e) {
+        let that = this;
+        checkUserLoginStatus(() => {
+            if (e.target.attr.data.status === ORDER_STATUS.UNPAID) {
+                that.gotoPaymentPage(e.target.attr.data);
+            }
+            if (e.target.attr.data.status === ORDER_STATUS.PAID_TOBE_USED) {
+                that.cancelOrder(e.target.attr.data);
+            }
+            if (e.target.attr.data.status === ORDER_STATUS.UNPAID_CANCELED || e.target.attr.data.status === ORDER_STATUS.PAID_USED) {
+                that.deleteOrder(e.target.attr.data.id);
+            }
+        }, () => {
+            router.push({
+                uri: 'pages/mine/mine_login',
+            })
+        });
+    },
+    cancelOrder(orderInfo) {
+        agconnect.lowCode().callDataModel({
+            modelId: "1138476836657883713", methodName: "update", status: 0, params: {
+                object: {
+                    id: orderInfo.id,
+                    no: orderInfo.no,
+                    name: orderInfo.name,
+                    pic: orderInfo.pic,
+                    date: orderInfo.date,
+                    time: orderInfo.time,
+                    status: ORDER_STATUS.UNPAID_CANCELED,
+                    price: orderInfo.price,
+                    number: orderInfo.number,
+                    totalPrice: orderInfo.totalPrice,
+                    actualPay: orderInfo.actualPay,
+                }
+            }
+        }).then(res => {
+            this.refreshlistticket_order_9wosb();
+        }).catch(e => {
+            this.refreshlistticket_order_9wosb();
+        });
+    },
+    deleteOrder(id) {
+        agconnect.lowCode().callDataModel({
+            modelId: "1138476836657883713", methodName: "delete", status: 0, params: {
+                object: {
+                    id: id
+                }
+            }
+        }).then(res => {
+            this.refreshlistticket_order_9wosb();
+        }).catch(e => {
+            this.refreshlistticket_order_9wosb();
+        });
+    },
+    gotoPaymentPage(orderInfo) {
+        let datePeriod = orderInfo.date + " " + orderInfo.time
+        router.push({
+            uri: 'pages/pay/payment/payment',
+            params: {
+                datePeriod: datePeriod,
+                ticketInfo: {
+                    id: orderInfo.id,
+                    name: orderInfo.name,
+                    pic: orderInfo.pic,
+                    date: orderInfo.date,
+                    time: orderInfo.time,
+                    price: orderInfo.price,
+                    number: orderInfo.number,
+                    totalPrice: orderInfo.totalPrice
+                }
+            }
+        });
+    },
+    gotoTicketDetailPage(orderInfo) {
+        router.push({
+            uri: 'pages/ticket/ticket_buy_result',
+            params: {
+                param: {
+                    retCode: 0,
+                    routerFromPayment: false,
+                    ticketData: "ticketId:" + orderInfo.id, // 此处订单二维码信息ticketData仅为示例，实际建议由服务端生成
+                }
+            }
+        });
+    }
 }

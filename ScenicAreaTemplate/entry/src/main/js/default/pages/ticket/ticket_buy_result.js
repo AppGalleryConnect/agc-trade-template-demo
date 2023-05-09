@@ -32,14 +32,19 @@ export default {
         param: {
             retCode: 0,
             datePeriod: "明日 2023-04-14 09:00-14:00",
-            ticket_data: "test"
+            ticketData: "",
+            routerFromPayment: true
         }
     },
     refreshDataByParam(param) {
-        this.icon = param["retCode"] == 0 ? ICON_SUCCESS : ICON_FAILED;
-        this.title = param["retCode"] == 0 ? "购票成功" : "购票失败";
-        this.message = param["retCode"] == 0 ? `您已成功购买 ${param["datePeriod"]} 时段景区门票` : `您未能成功购买 ${param["datePeriod"]} 时段景区门票`;
-        this.qr_url = param["retCode"] == 0 ? `${QR_API_URL}?data=${param["ticket_data"]}` : "";
+        if (param["routerFromPayment"]) {
+            this.icon = param["retCode"] == 0 ? ICON_SUCCESS : ICON_FAILED;
+            this.title = param["retCode"] == 0 ? "购票成功" : "购票失败";
+            this.message = param["retCode"] == 0 ? `您已成功购买 ${param["datePeriod"]} 时段景区门票` : `您未能成功购买 ${param["datePeriod"]} 时段景区门票`;
+        } else {
+            this.message = `请您出示如下二维码`;
+        }
+        this.qr_url = param["retCode"] == 0 ? `${QR_API_URL}?data=${param["ticketData"]}` : "";
     },
     onSaveClick() {
         Prompt.showToast({
@@ -47,7 +52,18 @@ export default {
         })
     },
     onBackClick() {
-        router.back();
+        if (this.param.retCode === 0 && this.param.routerFromPayment) {
+            // 购买成功后返回首页
+            router.clear();
+            router.replace({
+                uri: "pages/index/index",
+                params: {
+                    tableIndex: 0,
+                }
+            });
+        } else {
+            router.back();
+        }
     },
     onInit() {
         this.refreshDataByParam(this.param)

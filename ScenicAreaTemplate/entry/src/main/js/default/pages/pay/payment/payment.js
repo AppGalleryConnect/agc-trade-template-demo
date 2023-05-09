@@ -15,41 +15,55 @@
  */
 
 import router from '@system.router';
+import "@hw-agconnect/lowcode-harmony";
+import agconnect from "@hw-agconnect/core-harmony";
+import { ORDER_STATUS } from '../../constant/constant';
 
 export default {
     data: {
-        totalPrice: "￥20.00",
-        priceValue: "",
+        totalPrice: "",
         datePeriod: "",
-        paymentSelect: {
-            "weixin": true, "alipay": false
-        },
-        paytimeText :"剩余支付时间：15:00",
+        orderId: "",
+        paytimeText: "剩余支付时间：15:00",
         payBeforeTime: new Date(Date.now() + 15 * 60 * 1000),
-        disablePay: false
+        disablePay: false,
+        ticketInfo: {
+            id: "",
+            name: "",
+            pic: "",
+            scenicAreaId: "",
+            date: "",
+            time: "",
+            price: "",
+            number: 0,
+            totalPrice: ""
+        }
     },
     onInit() {
-
-        this.totalPrice = "￥" + this.priceValue;
+        this.totalPrice = "￥" + this.ticketInfo.totalPrice;
+        this.orderId = "订单号：" + this.ticketInfo.id;
         let that = this;
-        setInterval (function () {
+        setInterval(function () {
             that.paytimeText = "剩余支付时间：" + that.getLeftPayTime();
-        }, 1000);  //反复执行函数本身
+        }, 1000); //反复执行函数本身
     },
     startPay() {
-        let action = this.initAction(this.paymentSelect["weixin"] ? 0 : 1);
+        let action = this.initAction(1);
         let datePeriod = this.datePeriod;
+        let that = this;
         FeatureAbility.subscribeAbilityEvent(action, function (payRes) {
             var resultData = JSON.parse(payRes).data;
             if (resultData.statusCode === "9000") {
                 console.log("alipay ok");
+                that.updateTicketBuy(ORDER_STATUS.PAID_TOBE_USED);
                 router.push({
                     uri: 'pages/ticket/ticket_buy_result',
                     params: {
                         param: {
                             retCode: 0,
                             datePeriod: datePeriod,
-                            ticket_data: "xxxx"
+                            ticketData: "ticketId:" + that.ticketInfo.id, // 此处订单二维码信息ticketData仅为示例，实际建议由服务端生成
+                            routerFromPayment: true
                         }
                     }
                 });
@@ -58,16 +72,33 @@ export default {
             }
         });
     },
-    switchPayment(e) {
-        this.paymentSelect = {
-            "weixin": false, "alipay": false
-        };
-        this.paymentSelect[e.currentTarget.attr.value] = true;
+    // 同步购票订单状态需要在云侧进行，此处仅为样例演示流程
+    async updateTicketBuy(status) {
+        // 插入订单状态为已下单未付款
+        let res = await agconnect.lowCode().callDataModel({
+            modelId: "1138476836657883713", methodName: "update", status: 0, params: {
+                object: {
+                    id: this.ticketInfo.id,
+                    name: this.ticketInfo.name,
+                    pic: this.ticketInfo.pic,
+                    date: this.ticketInfo.date,
+                    scenicAreaId: this.ticketInfo.scenicAreaId,
+                    time: this.ticketInfo.time,
+                    price: this.ticketInfo.price,
+                    number: this.ticketInfo.number,
+                    totalPrice: this.ticketInfo.totalPrice,
+                    actualPay: this.ticketInfo.totalPrice,
+                    status: status // 0已下单未付款，1已下单未付款已取消，2已下单已付款未使用，3已下单已付款已使用，4已下单已付款已退款
+                }
+            }
+        })
+        const ret = res.getValue().ret;
+        return ret.code === 0;
     },
 
     initAction(code) {
         var actionData = {
-            "priceValue": this.priceValue
+            "priceValue": this.ticketInfo.totalPrice
         };
         var action = {};
         action.bundleName = "com.huawei.scenicarea";

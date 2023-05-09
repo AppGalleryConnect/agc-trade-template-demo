@@ -18,7 +18,7 @@ import router from '@system.router';
 
 export default {
     onInit() {
-        
+
     },
 
     routerToBack() {
