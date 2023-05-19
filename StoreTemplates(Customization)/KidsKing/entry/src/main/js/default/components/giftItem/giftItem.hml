@@ -1,0 +1,18 @@
+<element name='MoneyText' src='../../components/moneyText/moneyText.hml'></element>
+<div class="giftItem">
+	<div class="giftImgCon">
+		<image src="{{ giftItem.Pic }}" class="giftImg"></image>
+	</div>
+	<div class="giftBodyCon">
+		<text class="titleCon">
+			<span class="tag"> 赠品 </span>
+			<span class="title"> {{ giftItem.Name }}</span>
+		</text>
+		<text class="size">{{ giftItem.Attr }}</text>
+		<div class="footerCon">
+			<MoneyText if="{{ giftItem.PmPrice }}" money="{{ giftItem.PmPrice }}"></MoneyText>
+			<text else></text>
+			<text class="giftNum">x{{ giftItem.Num }}</text>
+		</div>
+	</div>
+</div>

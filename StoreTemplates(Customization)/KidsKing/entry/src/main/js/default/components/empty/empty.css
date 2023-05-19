@@ -1,0 +1,41 @@
+.emptyCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 130px;
+}
+
+.img {
+  height: 87px;
+  width: 87px;
+}
+
+.title {
+  color: #121212;
+  font-family: PingFang SC;
+  font-size: 15.4px;
+  margin-top: 10px;
+}
+
+.desc {
+  text-align: center;
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  margin-top: 5px;
+}
+
+.btn {
+  width: 98px;
+  height: 30px;
+  border-radius: 14.4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  background: linear-gradient(90deg, #ff397e 0%, #ff074c 100%);
+}

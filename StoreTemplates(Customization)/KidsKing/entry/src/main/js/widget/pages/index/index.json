@@ -1,0 +1,17 @@
+{
+  "data": {
+    "title": "Title",
+    "detail": "Text",
+    "iconTitle": "Picture"
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "router",
+      "bundleName": "com.kidsking.atomic",
+      "abilityName": "com.kidsking.atomic.MainAbility",
+      "params": {
+        "message": "add detail"
+      }
+    }
+  }
+}

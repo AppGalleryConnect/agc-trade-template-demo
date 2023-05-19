@@ -1,0 +1,45 @@
+#tabBarCon {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color: #ffffff;
+  border-top-width: 1px;
+  border-top-color: #f4f4f4;
+}
+
+#tab1 {
+  width: 33.3333%;
+  height: 49px;
+  justify-content: center;
+  align-items: center;
+}
+
+#image4 {
+  width: 120px;
+  height: 47px;
+}
+
+#tab2 {
+  width: 33.3333%;
+  height: 49px;
+  justify-content: center;
+  align-items: center;
+}
+
+#image5 {
+  width: 120px;
+  height: 47px;
+}
+
+#tab3 {
+  width: 33.3333%;
+  height: 49px;
+  justify-content: center;
+  align-items: center;
+}
+
+#image6 {
+  width: 120px;
+  height: 47px;
+}

@@ -1,0 +1,128 @@
+<element name='GoodsItem' src='../../components/goodsItem/goodsItem.hml'></element>
+<element name='GiftItem' src='../../components/giftItem/giftItem.hml'></element>
+<element name='Checkbox' src='../../components/checkbox/checkbox.hml'></element>
+<div class="blockItemCon">
+	<div class="blockHeader">
+		<div class="headerLeft">
+			<block if="{{ blockItem.Type === 1 }}">
+				<Checkbox checked="{{ blockItem.IsCd }}" @on-select="handleSelectBlock" @on-unselect="handleUnselectBlock">
+				</Checkbox>
+				<div class="crossTitleCon">
+					<text class="crossTitle">跨店铺满减</text>
+					<text class="crossDesc">{{ blockItem.Desc }}</text>
+				</div>
+			</block>
+			<block if="{{ blockItem.Type === 2 }}">
+				<Checkbox checked="{{ blockItem.IsCd }}" @on-select="handleSelectBlock" @on-unselect="handleUnselectBlock">
+				</Checkbox>
+				<div class="titleCon" onclick="handleClickStoreTitle({{ blockItem.Url }})">
+					<image if="{{ blockItem.SType === 2 }}" src="/media/cart/storeIcon2.png" class="storeImage2"></image>
+					<image elif="{{ blockItem.SType === 3 }}" src="/media/cart/storeIcon3.png" class="storeImage3"></image>
+					<image else src="/media/cart/storeIcon.png" class="storeImage"></image>
+					<text class="storeName">{{ blockItem.Name }}</text>
+					<image if="{{ blockItem.Url }}" src="/media/cart/right.png" class="rightImage"></image>
+				</div>
+			</block>
+			<block if="{{ blockItem.Type === 99 }}">
+				<div class="titleCon titleConUseless">
+					<text class="storeName storeNameUseless">失效商品</text>
+				</div>
+			</block>
+		</div>
+		<div class="headerRight" onclick="handleClickStoreRightIcon({{ blockItem.Type }}, {{ blockItem.PmTimes }})">
+			<block if="{{ blockItem.Type === 1 }}">
+				<text class="sellBtn">{{ blockItem.PmTimes > 0 ? '再逛逛' : '去凑单' }} ></text>
+			</block>
+			<block if="{{ blockItem.Type === 2 }}">
+				<image src="/media/cart/infoIcon.png" class="extraIcon"></image>
+				<text class="extraText">{{ blockItem.FDesc }}</text>
+			</block>
+			<block if="{{ blockItem.Type === 99 }}">
+				<image src="/media/cart/delete.png" class="extraIcon"></image>
+				<text class="extraText" onclick="handleQuickDelete">快速清理</text>
+			</block>
+		</div>
+	</div>
+
+<!-- 最外层是跨店铺时	-->
+	<div if="{{ blockItem.Type === 1 }}" class="columnFlex crossContentCon">
+	
+	<!-- 遍历商家列表 -->
+		<div class="columnFlex" for="{{ (subIndex, subListItem) in blockItem.SubList }}" tid="Id">
+			<div class="crossTitleDiv">
+				<div class="storeTitleCon">
+					<image if="{{ subListItem.SType === 2 }}" src="/media/cart/storeIcon2.png" class="storeImage2"></image>
+					<image elif="{{ subListItem.SType === 3 }}" src="/media/cart/storeIcon3.png" class="storeImage3"></image>
+					<image else src="/media/cart/storeIcon.png" class="storeImage"></image>
+					<text class="storeName">{{ subListItem.Name }}</text>
+				</div>
+			</div>
+		
+		<!--	遍历商家块下面的商品 -->
+			<GoodsItem for="{{ (goodsIndex, goodsItem) in subListItem.Items }}" tid="Id"
+			           is-sell="{{ subListItem.Type === 4 }}" sub-index="{{ subIndex }}" goods-index="{{ goodsIndex }}"
+			           goods-item="{{ goodsItem }}"></GoodsItem>
+		</div>
+	
+	</div>
+
+<!-- 最外层是商家块时	-->
+	<block if="{{ blockItem.Type === 2 }}">
+	
+	<!--	遍历商家块下面促销块中的商品	-->
+		<div class="columnFlex" for="{{ (subIndex, subListItem) in blockItem.SubList }}" tid="Id">
+			<div class="sellInfoContainer">
+				<div class="sellInfoCon" if="{{ subListItem.Type === 4 }}">
+					<div>
+						<text class="sellTag">{{ subListItem.Name }}</text>
+						<text class="sellInfo">{{ subListItem.Desc }}</text>
+					</div>
+					<text class="sellBtn">{{ getSellExtraText(subListItem.PmType, subListItem.PmTimes, subListItem.GList) }} >
+					</text>
+				</div>
+			</div>
+			<GoodsItem for="{{ (goodsIndex, goodsItem) in subListItem.Items }}" tid="Id"
+			           is-sell="{{ subListItem.Type === 4 }}" goods-index="{{ goodsIndex }}" goods-item="{{ goodsItem }}">
+			</GoodsItem>
+		</div>
+	
+	<!--	遍历商家块下面的商品块中的商品 -->
+		<div for="{{ (goodsIndex, goodsItem) in blockItem.Items }}" tid="Id">
+			<GoodsItem goods-item="{{ goodsItem }}" goodsIndex="{{ goodsIndex }}"></GoodsItem>
+		</div>
+	
+	<!-- 遍历商家融合促销MixProList	-->
+		<block if="{{ blockItem.MixProList && blockItem.MixProList.length > 0 }}">
+			<div class="columnFlex" for="{{ (mixIndex, mixProListItem) in blockItem.MixProList }}" tid="Id">
+				<div class="sellInfoContainer">
+					<div class="sellInfoCon-mix">
+						<div>
+							<text class="sellTag">{{ mixProListItem.Type === 26 ? '返红包' : '满赠' }}</text>
+							<text class="sellInfo">{{ mixProListItem.Desc }}</text>
+						</div>
+						<text class="sellBtn">{{
+							getMixSellExtraText(mixProListItem.Type, mixProListItem.PmTimes, mixProListItem.GList) }} >
+						</text>
+					</div>
+				</div>
+				<block if="{{ getGiftList(mixProListItem.GList).length > 0 }}">
+					<div class="columnFlex" style="margin-top: -14px;">
+						<div for="{{ (gIndex, gListItem) in getGiftList(mixProListItem.GList) }}" tid="Id">
+							<GiftItem gift-item="{{ gListItem }}"></GiftItem>
+						</div>
+					</div>
+				</block>
+			</div>
+		</block>
+	</block>
+
+
+<!-- 最外层是异常块时	-->
+	<block if="{{ blockItem.Type === 99 }}">
+	
+	<!--	遍历异常块下面的商品 -->
+		<GoodsItem for="{{ (goodsIndex, goodsItem) in blockItem.Items }}" tid="Id" goods-item="{{ goodsItem }}"
+		           useless="{{ true }}" goods-index="{{ goodsIndex }}"></GoodsItem>
+	</block>
+
+</div>

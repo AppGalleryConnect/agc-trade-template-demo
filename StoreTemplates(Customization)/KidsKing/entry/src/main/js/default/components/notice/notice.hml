@@ -1,0 +1,7 @@
+<div class="noticeCon" if="{{ isShow && list[0].msg }}">
+	<div class="content" onclick="handleToNotice">
+		<image class="icon" src="/media/cart/notice_icon.png"></image>
+		<text class="noticeText">{{ list[0].msg }}</text>
+	</div>
+	<image onclick="handleCloseNotice" class="closeIcon" src="/media/cart/notice_close.png"></image>
+</div>

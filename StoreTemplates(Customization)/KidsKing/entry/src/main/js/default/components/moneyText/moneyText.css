@@ -1,0 +1,26 @@
+.moneyCon {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 20px;
+}
+
+.small {
+  color: #ff397e;
+  font-family: SF Pro Text;
+  font-weight: 500;
+  font-size: 11.5px;
+  height: 18px;
+}
+
+.left {
+  margin-left: -1px;
+}
+
+.inter {
+  color: #ff397e;
+  font-family: SF Pro Text;
+  font-weight: 500;
+  font-size: 16.5px;
+  height: 20px;
+}

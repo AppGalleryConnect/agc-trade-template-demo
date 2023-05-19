@@ -1,0 +1,125 @@
+{
+  "app": {
+    "vendor": "example",
+    "bundleName": "com.kidsking.atomic",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "mainAbility": "com.kidsking.atomic.MainAbility",
+    "deviceType": [
+      "phone",
+      "tablet",
+      "wearable"
+    ],
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Light.NoTitleBar"
+            }
+          ]
+        },
+        "visible": true,
+        "name": "com.kidsking.atomic.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "formsEnabled": true,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "forms": [
+          {
+            "jsComponentName": "widget",
+            "isDefault": true,
+            "scheduledUpdateTime": "10:30",
+            "defaultDimension": "2*2",
+            "name": "widget",
+            "description": "This is a service widget.",
+            "colorMode": "auto",
+            "type": "JS",
+            "supportDimensions": [
+              "2*2"
+            ],
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard"
+      },
+      {
+        "name": "com.kidsking.atomic.WebviewAbility",
+        "description": "$string:webviewability_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_WebviewAbility",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      }
+    ],
+    "distro": {
+      "moduleType": "entry",
+      "installationFree": true,
+      "deliveryWithInstall": true,
+      "moduleName": "entry"
+    },
+    "metaData": {
+      "customizeData": [
+        {
+          "extra": "",
+          "name": "hwc-theme",
+          "value": "androidhwext:style/Theme.Emui.Light.NoTitleBar"
+        },
+        {
+          "name": "com.huawei.hms.client.appid",
+          "value": ""
+        }
+      ]
+    },
+    "package": "com.kidsking.atomic",
+    "name": ".MyApplication",
+    "js": [
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/personalCenter/personalCenter",
+          "pages/cart/cart",
+          "pages/login/login",
+          "pages/huaweiLogin/huaweiLogin",
+          "pages/phoneLogin/phoneLogin"
+        ],
+        "name": "default",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        }
+      },
+      {
+        "pages": [
+          "pages/index/index"
+        ],
+        "name": "widget",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        },
+        "type": "form"
+      }
+    ]
+  }
+}

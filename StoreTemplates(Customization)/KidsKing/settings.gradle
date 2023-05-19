@@ -1,0 +1,2 @@
+rootProject.name = 'KidsKing'
+include ':entry'

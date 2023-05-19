@@ -1,0 +1,63 @@
+<element name='Checkbox' src='../../components/checkbox/checkbox.hml'></element>
+<element name='MoneyText' src='../../components/moneyText/moneyText.hml'></element>
+<element name='NumberSelect' src='../../components/numberSelect/numberSelect.hml'></element>
+<element name='GiftItem' src='../../components/giftItem/giftItem.hml'></element>
+<div id="goodsItemContainer" onswipe="handleSwipeItem" style="margin-top: {{ hideMarginTop ? '0' : '20px' }};">
+	<div id="goodsItemCon" style="margin-left: {{ marginLeft }};">
+		<div class="mainGoodsCon">
+			<image if="{{ useless }}" src="/media/cart/useless.png" class="uselessImg"></image>
+			<Checkbox else checked="{{ goodsItem.IsCd }}" @on-select="handleSelectGoods" @on-unselect="handleUnselectGoods">
+			</Checkbox>
+			<div class="goodsContent">
+				<div class="goodsImgCon">
+					<image src="{{ goodsItem.Pic }}" class="goodsImg"></image>
+					<div class="stockCon" if="{{ goodsItem.StockNum > 0 && goodsItem.StockNum < 10 && ! useless }}">
+						<text class="stockText">剩余{{ goodsItem.StockNum }}件</text>
+					</div>
+				</div>
+				<div class="goodsBodyCon">
+					<text class="title" style="color: {{ useless ? '#cccccc' : '#262626' }}">{{
+						goodsItem.Title }}</text>
+					<text class="size" style="color: {{ useless ? '#cccccc' : '#999999' }}">{{ goodsItem.Attr }}</text>
+					<div class="footerCon">
+						<block if="{{ useless }}">
+							<text class="uselessReason">{{ goodsItem.Reason }}</text>
+							<button class="findLikeBtn">找相似</button>
+						</block>
+						<block else>
+							<MoneyText money="{{ goodsItem.Sell }}"></MoneyText>
+							<NumberSelect min="{{ goodsItem.Min }}"
+							              max="{{ goodsItem.StockNum ? Math.min(goodsItem.Max, goodsItem.StockNum) : goodsItem.Max }}"
+							              numbers="{{ goodsItem.Num }}" @on-plus="handlePlusCount" @on-minus="handleMinusCount">
+							</NumberSelect>
+						</block>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="giftListCon" if="{{ goodsItem.GList.length > 0 }}">
+			<block for="{{ (index, giftItem) in goodsItem.GList }}" tid="Id">
+				<GiftItem gift-item="{{ giftItem }}"></GiftItem>
+			</block>
+		</div>
+	</div>
+	<div class="editCon">
+		<text class="findLikeBtnInEdit" onclick="handleFindLike">找相似</text>
+		<text class="delBtnInEdit" onclick="handleDeleteGoods">删除</text>
+	</div>
+	<dialog id="dialogDelete" style="margin-bottom: 50%;">
+		<div class="dialog-div">
+			<div class="dialogDelete-bodyCon">
+				<text class="dialogDelete-txt">确认删除此商品？</text>
+			</div>
+			<div class="dialogDelete-footer">
+				<div class="dialogDelete-giveUpBtn" onclick="handleCancelDelete">
+					<text class="dialogDelete-giveupText">取消</text>
+				</div>
+				<div class="dialogDelete-confirmBtn" onclick="handleConfirmDelete">
+					<text class="dialogDelete-confirmText">确认</text>
+				</div>
+			</div>
+		</div>
+	</dialog>
+</div>

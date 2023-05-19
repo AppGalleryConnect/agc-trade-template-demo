@@ -1,0 +1,4 @@
+<div class="checkboxCon">
+	<image class="checkIcon" onclick="handleUnSelect" if="{{ checked }}" src="/media/cart/checkActive.png"></image>
+	<image class="checkIcon" onclick="handleSelect" else src="/media/cart/check.png"></image>
+</div>

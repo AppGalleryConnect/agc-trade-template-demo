@@ -1,0 +1,141 @@
+<element name='CheckBox' src='../../components/checkbox/checkbox.hml'></element>
+<element name='MoneyText' src='../../components/moneyText/moneyText.hml'></element>
+
+<block>
+	<div if="{{ showCheapDialog }}" class="cheapDialog">
+		<div class="grayBg" onclick="handleToggleCheapDialog"></div>
+		<div class="cheapContent" onclick="handleDoNothing">
+			<div class="title">
+				<div class="closeIcon"></div>
+				<text class="titleText">优惠明细</text>
+				<image onclick="handleToggleCheapDialog" class="closeIcon" src="/media/cart/close.png"></image>
+			</div>
+			<div class="content">
+				<div class="contentRow" if="{{ cartData.Discount }}">
+					<text class="contentRowLeft">满减</text>
+					<text class="contentRowRight">-￥{{ formatNum(cartData.Discount) }}</text>
+				</div>
+				<block if="{{ cartData.CDiscount }}">
+					<div class="contentRow">
+						<text class="contentRowLeft">优惠券</text>
+						<text class="contentRowRight">-￥{{ formatNum(cartData.CDiscount) }}</text>
+					</div>
+					<div class="contentRowMin" if="{{ cartData.VCDiscount }}">
+						<text class="smallText">预计本次帮您领券可享优惠 ¥{{ formatNum(cartData.VCDiscount) }}</text>
+					</div>
+				</block>
+				<block if="{{ cartData.ActualDeductAmt }}">
+					<div class="contentRow">
+						<div class="contentRowInfoCon">
+							<text class="contentRowLeft">积分抵现</text>
+							<image class="contentRowInfoIcon" src="/media/cart/infoIcon.png"></image>
+						</div>
+						<text class="contentRowRight">-¥{{ formatNum(cartData.ActualDeductAmt) }}</text>
+					</div>
+					<div class="contentRowMin">
+						<text class="smallText">当前积分{{ cartData.TotalScore }}，已抵{{ cartData.ActualDeductScore }}积分</text>
+						<div class="contentRowInfoCon">
+							<text class="contentRowRight">抵扣明细</text>
+							<image class="contentRowRightIcon" src="/media/cart/right.png"></image>
+						</div>
+					</div>
+				</block>
+			</div>
+			<div class="dialogFooter">
+				<text class="footerText">共优惠</text>
+				<text class="countText">¥{{ formatNum(cartData.TotalDiscount) }}</text>
+			</div>
+		</div>
+	</div>
+	
+	<div if="{{ showDiffBuyDialog }}" class="diffBuyDialog">
+		<div class="diffBuy_grayBg" onclick="handleToggleDiffBuyDialog"></div>
+		<div class="diffBuyContent" onclick="handleDoNothing">
+			<div class="diffBuy_title">
+				<div class="diffBuy_closeIcon"></div>
+				<text class="diffBuy_titleText">请分开结算以下商品</text>
+				<image onclick="handleToggleDiffBuyDialog" class="diffBuy_closeIcon" src="/media/cart/close.png"></image>
+			</div>
+			<div class="diffBuy_contentRow">
+				<div class="diffBuy_contentRow_left">
+					<text class="diffBuy_contentRow_left_tip">跨境购商品</text>
+					<div class="textCon">
+						<text class="diffBuy_contentRow_left_count">共{{ cartData.OverseaList.Num }}件，合计</text>
+						<MoneyText money="{{ cartData.OverseaList.TotalPrice }}"></MoneyText>
+					</div>
+				</div>
+				<div class="diffBuy_contentRow_right" onclick="handleBuyGlobalGoods">
+					<text class="diffBuyText">去结算</text>
+				</div>
+			</div>
+			<div class="diffBuy_contentRow">
+				<div class="diffBuy_contentRow_left">
+					<text class="diffBuy_contentRow_left_tip">其他商品</text>
+					<div class="textCon">
+						<text class="diffBuy_contentRow_left_count">共{{ cartData.LocalList.Num }}件，合计</text>
+						<MoneyText money="{{ cartData.LocalList.TotalPrice }}"></MoneyText>
+					</div>
+				</div>
+				<div class="diffBuy_contentRow_right" onclick="handleBuyLocalGoods">
+					<text class="diffBuyText">去结算</text>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="buyBarCon">
+		<div class="leftContent">
+			<CheckBox checked="{{ cartData.IsCd }}" @on-select="handleSelectAll" @on-unselect="handleUnselectAll"></CheckBox>
+			<text class="checkText">全选</text>
+		</div>
+		<div class="editPart" if="{{ isEditing }}" onclick="handleDeleteAll">
+			<text class="delText">删除商品</text>
+		</div>
+		<div else class="rightContent">
+			<div class="infoCon">
+				<div class="totalCon">
+					<text class="totalText">合计</text>
+					<MoneyText money="{{ showTotal }}"></MoneyText>
+				</div>
+				<div class="totalTipCon">
+					<text class="tipText">不含运费&税费</text>
+					<text onclick="handleToggleCheapDialog" class="cheap">优惠￥{{ formatNum(cartData.TotalDiscount) }}
+					</text>
+					<image onclick="handleToggleCheapDialog" class="infoIcon" src="/media/cart/infoIcon.png"></image>
+				</div>
+			</div>
+			<div class="buyBtn" onclick="handleClickBuyBtn">
+				<text class="buyText">{{ hasCoupon ? '领券结算' : '去结算' }}({{ cartData.Num }})</text>
+			</div>
+		</div>
+	</div>
+	<dialog id="dialogDelete" style="margin-bottom: 50%;">
+		<div class="dialog-div">
+			<div class="dialogDelete-bodyCon" onclick="handleDeleteAll">
+				<text class="dialogDelete-txt">确定要删除吗？</text>
+			</div>
+			<div class="dialogDelete-footer">
+				<div class="dialogDelete-giveUpBtn" onclick="handleCancelDelete">
+					<text class="dialogDelete-giveupText">取消</text>
+				</div>
+				<div class="dialogDelete-confirmBtn" onclick="handleConfirmDelete">
+					<text class="dialogDelete-confirmText">确定</text>
+				</div>
+			</div>
+		</div>
+	</dialog>
+	<dialog id="dialogGift" style="margin-bottom: 50%;">
+		<div class="dialog-div">
+			<div class="bodyCon">
+				<text class="txt">您当前订单有{{ hasGiftNotGet }}个赠品未领取哦，点击领取赠品吧</text>
+			</div>
+			<div class="footer">
+				<div class="giveUpBtn" onclick="handleGiveUpGift">
+					<text class="giveupText">放弃赠品</text>
+				</div>
+				<div class="confirmBtn" onclick="handleGetGift">
+					<text class="confirmText">确定</text>
+				</div>
+			</div>
+		</div>
+	</dialog>
+</block>

@@ -1,0 +1,484 @@
+.buyBarCon {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 360px;
+  height: 48px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 11.5px;
+}
+
+.leftContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkText {
+  color: #333333;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+  margin-left: 5px;
+}
+
+.rightContent {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.infoCon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.totalCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.totalText {
+  color: #121212;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  margin-right: 6px;
+}
+
+.totalTipCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tipText {
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+}
+
+.cheap {
+  color: #ff397e;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+  margin-left: 2px;
+}
+
+.infoIcon {
+  width: 15px;
+  height: 15px;
+  margin-left: 2px;
+}
+
+.buyBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7px;
+  width: 100px;
+  height: 38px;
+  border-radius: 23.5px;
+  background: linear-gradient(90deg, #ff397e 0%, #ff074c 100%);
+}
+
+.buyText {
+  text-align: center;
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+}
+
+.editPart {
+  width: 69px;
+  height: 27px;
+  border-radius: 13.5px;
+  border: 0.5px solid #999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delText {
+  color: #121212;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+}
+
+.cheapDialog {
+  width: 100%;
+  height: 100%;/*  padding-bottom: 98.5px;*/
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 98px;
+}
+
+
+.grayBg {
+  position: absolute;
+  width: 360px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.cheapContent {
+  width: 360px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: #ffffff;
+  z-index: 100;
+  padding: 15.4px 11.5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+}
+
+.closeIcon {
+  width: 15.4px;
+  height: 15.4px;
+}
+
+.titleText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-weight: 500;
+  font-size: 15.4px;
+}
+
+.content {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.contentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 7px;
+  width: 100%;
+}
+
+.contentRowMin {
+  margin-top: 4px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contentRowInfoCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentRowInfoIcon {
+  width: 15px;
+  height: 15px;
+  margin-left: 2px;
+}
+
+.contentRowLeft {
+  color: #666666;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+}
+
+.smallText {
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 9.6px;
+}
+
+.contentRowRight {
+  color: #121212;
+  font-family: SF Pro Text;
+  font-size: 11.5px;
+}
+
+.contentRowRightIcon {
+  width: 9.6px;
+  height: 9.6px;
+}
+
+.dialogFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 11.5px;
+}
+
+.footerText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-weight: 500;
+  font-size: 15.4px;
+}
+
+.countText {
+  color: #ff397e;
+  font-family: SF Pro Text;
+  font-weight: 500;
+  font-size: 15.4px;
+}
+
+/**/
+
+.diffBuyDialog {
+  width: 100%;
+  height: 100%;/*  padding-bottom: 98.5px;*/
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+}
+
+
+.diffBuy_grayBg {
+  position: absolute;
+  width: 360px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.diffBuyContent {
+  width: 360px;
+  height: 180px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: #ffffff;
+  z-index: 100;
+  padding: 15.4px 11.5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diffBuy_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+}
+
+.diffBuy_closeIcon {
+  width: 15.4px;
+  height: 15.4px;
+}
+
+.diffBuy_titleText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-weight: 500;
+  font-size: 15.4px;
+}
+
+.diffBuy_contentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.diffBuy_contentRow_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.diffBuy_contentRow_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 28.8px;
+  border-radius: 14.4px;
+  background: linear-gradient(90deg, #ff397e 0%, #ff074c 100%);
+}
+
+.diffBuyText {
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+}
+
+.diffBuy_contentRow_left_tip {
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+}
+
+.textCon {
+  margin-top: 3px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 20px;
+}
+
+.diffBuy_contentRow_left_count {
+  color: #121212;
+  font-family: PingFang SC;
+  font-size: 15.4px;
+  margin-right: 3px;
+}
+
+.span_price {
+  color: #ff397e;
+  font-weight: 500;
+  font-size: 15.4px;
+}
+
+
+#dialogDelete {
+  width: 268.8px;
+}
+
+
+.dialog-div {
+  width: 268.8px;
+  height: 100px;
+  border-radius: 13.4px;
+  background-color: #ffffff;
+  flex-direction: column;
+  display: flex;
+  padding: 0;
+}
+
+.dialogDelete-bodyCon {
+  padding: 20px 16px 20px 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.dialogDelete-txt {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  width: 100%;
+}
+
+.dialogDelete-footer {
+  border-top: 1px solid #f0f0f0;
+  height: 40px;
+  width: 100%;
+}
+
+.dialogDelete-giveUpBtn {
+  width: 129.6px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+.dialogDelete-giveupText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 15.4px;
+}
+
+.dialogDelete-confirmText {
+  color: #ff397e;
+  font-family: PingFang SC;
+  font-weight: 600;
+  font-size: 15.4px;
+}
+
+.dialogDelete-confirmBtn {
+  width: 139.2px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/** 赠品弹窗 start **/
+
+#dialogGift {
+  width: 268.8px;
+}
+
+.dialog-div {
+  width: 268.8px;
+  height: 120px;
+  border-radius: 13.4px;
+  background-color: #ffffff;
+  flex-direction: column;
+  display: flex;
+  padding: 0;
+}
+
+.bodyCon {
+  padding: 20px 16px 20px 16px;
+  width: 100%;
+}
+
+.txt {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  width: 100%;
+}
+
+.footer {
+  border-top: 1px solid #f0f0f0;
+  height: 40px;
+  width: 100%;
+}
+
+.giveUpBtn {
+  width: 129.6px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+.giveupText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 15.4px;
+}
+
+.confirmText {
+  color: #ff397e;
+  font-family: PingFang SC;
+  font-weight: 600;
+  font-size: 15.4px;
+}
+
+.confirmBtn {
+  width: 139.2px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

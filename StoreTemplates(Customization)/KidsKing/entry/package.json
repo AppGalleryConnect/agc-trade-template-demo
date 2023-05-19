@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@hw-agconnect/lowcode-harmony": "1.1.0",
+    "@hw-agconnect/auth-harmony": "1.1.0"
+  }
+}

@@ -1,0 +1,11 @@
+<div id="tabBarCon">
+	<div id="tab1" onclick="handleJumpToHome">
+		<image id="image4" src="/media/common/tab_home.png"></image>
+	</div>
+	<div id="tab2">
+		<image id="image5" src="/media/common/tab_cart_active.png"></image>
+	</div>
+	<div id="tab3" onclick="handleJumpToMine">
+		<image id="image6" src="/media/common/tab_mine.png"></image>
+	</div>
+</div>

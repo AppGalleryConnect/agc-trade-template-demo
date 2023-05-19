@@ -1,0 +1,38 @@
+.noticeCon {
+  width: 100%;
+  min-height: 29.8px;
+  border-radius: 7.7px;
+  background-color: #fee7a0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7.7px 11.5px;
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 290px;
+}
+
+.icon {
+  width: 11.5px;
+  height: 11.5px;
+  margin-right: 10px;
+}
+
+.noticeText {
+  min-height: 14.4px;
+  color: #a27a2e;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+  flex-wrap: wrap;
+  max-lines: 5;
+}
+
+.closeIcon {
+  width: 13.4px;
+  height: 13.4px;
+  margin-left: 10px;
+}

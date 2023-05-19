@@ -1,0 +1,53 @@
+<element name='NumberSelect' src='../../components/numberSelect/numberSelect.hml'></element>
+<element name='BuyBar' src='../../components/buyBar/buyBar.hml'></element>
+<element name='GoldBar' src='../../components/goldBar/goldBar.hml'></element>
+<element name='TabBar' src='../../components/tabBar/tabBar.hml'></element>
+<element name='Empty' src='../../components/empty/empty.hml'></element>
+<element name='Loading' src='../../components/loading/loading.hml'></element>
+<element name='Notice' src='../../components/notice/notice.hml'></element>
+<element name='BlockItem' src='../../components/blockItem/blockItem.hml'></element>
+<div>
+	<div id="wrapper">
+		<div id="cartContainer">
+			<div class="headerCon">
+				<text class="title" onclick="handleShowGiftDialog">商城购物车</text>
+				<block if="{{ ! showEmpty }}">
+					<image class="quitEditImg" if="{{ isEditing }}" src="/media/cart/quitEdit.png" onclick="handleToggleEditing">
+					</image>
+					<image class="editImg" else src="/media/cart/edit.png" onclick="handleToggleEditing"></image>
+				</block>
+			</div>
+			<Loading if="{{ pageLoading }}"></Loading>
+			<Empty if="{{ showEmpty }}"></Empty>
+			<block else>
+				<div id="storeList">
+					<Notice list="{{ notice }}"></Notice>
+					<div for="{{ (index, blockItem) in effectCartBlockList }}" tid="No">
+						<BlockItem block-item="{{ blockItem }}" @show-transport-dialog="handleShowTransportDialog"></BlockItem>
+					</div>
+					<div for="{{ (index, blockItem) in uselessCartBlockList }}" tid="No">
+						<BlockItem block-item="{{ blockItem }}"></BlockItem>
+					</div>
+					<div style="height: {{ cartData.data.ReturnDesc ? '50px' : '30px' }}"></div>
+				</div>
+				<GoldBar if="{{ cartData.data.ReturnDesc }}" str="{{ cartData.data.ReturnDesc }}"
+				         is-gold="{{ cartData.data.IsBGold }}"></GoldBar>
+				<BuyBar cart-data="{{ cartData.data }}" is-editing="{{ isEditing }}" @toggle-editing="handleToggleEditing"
+				        @show-gift-modal="handleShowGiftDialog"></BuyBar>
+			</block>
+			<TabBar></TabBar>
+		</div>
+		<dialog id="dialogTransport" style="margin-bottom: 50%;">
+			<div class="dialog-div">
+				<div class="bodyCon">
+					<text class="title">运费规则说明</text>
+					<text class="txt">{{ queryDelivery }}
+					</text>
+				</div>
+				<div class="footer" onclick="handleHideTransportDialog">
+					<text class="footerText">我知道了</text>
+				</div>
+			</div>
+		</dialog>
+	</div>
+</div>

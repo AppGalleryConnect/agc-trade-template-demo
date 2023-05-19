@@ -1,0 +1,9 @@
+<div class="numberSelectCon">
+	<button class="numBtn" disabled="{{ minusDisabled }}" onclick="handleMinus">-</button>
+
+<!-- todo input无法居中，更新数据文本会消失，暂时先用text渲染 -->
+<!--<input class="input" type="number" maxlength="3" enterkeytype="done" caret-color="#eee">{{ numbers }}-->
+<!--</input>-->
+	<text class="input">{{ numbers }}</text>
+	<button class="numBtn" disabled="{{ plusDisabled }}" onclick="handlePlus">+</button>
+</div>

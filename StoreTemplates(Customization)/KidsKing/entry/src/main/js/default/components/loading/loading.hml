@@ -1,0 +1,5 @@
+<div class="loadingCon">
+	<div class="imgCon">
+		<image src="/media/cart/loading.gif" class="img"></image>
+	</div>
+</div>

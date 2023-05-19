@@ -1,0 +1,224 @@
+#goodsItemContainer {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+
+#goodsItemCon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;/*  width: 336px;*/
+  transition: margin-left 1s;/* 此行暂时无效，因为transition还不支持margin */
+}
+
+.mainGoodsCon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.giftListCon {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.goodsContent {
+  display: flex;
+  flex-direction: row;
+  margin-left: 9.6px;
+}
+
+.goodsImgCon {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.goodsImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stockCon {
+  width: 100%;
+  height: 15.4px;
+  background-color: #ccff397e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.stockText {
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+}
+
+.goodsBodyCon {
+  width: 177px;
+  height: 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 9.6px;
+  flex-shrink: 0;
+}
+
+.title {
+  width: 100%;
+  height: 34.6px;
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+  max-lines: 2;
+  text-overflow: ellipsis;
+}
+
+.size {
+  margin-top: -22px;
+  height: 13.4px;
+  color: #999999;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+  max-lines: 1;
+  text-overflow: ellipsis;
+}
+
+.footerCon {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.uselessImg {
+  width: 27.8px;
+  height: 13.4px;
+}
+
+.uselessReason {
+  color: #121212;
+  font-family: PingFang SC;
+  font-size: 11.5px;
+}
+
+.findLikeBtn {
+  width: 49px;
+  height: 19.2px;
+  border-radius: 11.5px;
+  border: 0.5px solid #ff397e;
+  text-color: #ff397e;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+  background-color: #ffffff;
+}
+
+.editCon {
+  width: 148px;
+  height: 96px;
+  flex-shrink: 0;
+  margin-left: 14px;
+}
+
+.findLikeBtnInEdit {
+  width: 67.2px;
+  height: 96px;
+  background: linear-gradient(0deg, #ffc700 0%, #ff9500 100%);
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 12.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.delBtnInEdit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 67.2px;
+  height: 96px;
+  background: linear-gradient(0deg, #ff6d5e 0%, #ff3b30 100%);
+  color: #ffffff;
+  font-family: PingFang SC;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+#dialogDelete {
+  width: 268.8px;
+}
+
+
+.dialog-div {
+  width: 268.8px;
+  height: 100px;
+  border-radius: 13.4px;
+  background-color: #ffffff;
+  flex-direction: column;
+  display: flex;
+  padding: 0;
+}
+
+.dialogDelete-bodyCon {
+  padding: 20px 16px 20px 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.dialogDelete-txt {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 13.4px;
+  width: 100%;
+}
+
+.dialogDelete-footer {
+  border-top: 1px solid #f0f0f0;
+  height: 40px;
+  width: 100%;
+}
+
+.dialogDelete-giveUpBtn {
+  width: 129.6px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+.dialogDelete-giveupText {
+  color: #262626;
+  font-family: PingFang SC;
+  font-size: 15.4px;
+}
+
+.dialogDelete-confirmText {
+  color: #ff397e;
+  font-family: PingFang SC;
+  font-weight: 600;
+  font-size: 15.4px;
+}
+
+.dialogDelete-confirmBtn {
+  width: 139.2px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,38 @@
+{
+  "handler": "kidsking-event-function.myHandler",
+  "triggers": [
+    {
+      "type": "http",
+      "properties": {
+        "enableUrlDecode": true,
+        "authFlag": "true",
+        "authAlgor": "HDA-SYSTEM",
+        "authType": "cloudgw-client",
+      }
+    },
+    {
+      "type": "auth",
+      "properties": {
+        "eventType": 0
+      }
+    },
+    {
+      "type": "auth",
+      "properties": {
+        "eventType": 1
+      }
+    },
+    {
+      "type": "auth",
+      "properties": {
+        "eventType": 2
+      }
+    },
+    {
+      "type": "auth",
+      "properties": {
+        "eventType": 3
+      }
+    }
+  ]
+}
