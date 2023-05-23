@@ -1,7 +1,7 @@
 .blockItemCon {
   display: flex;
   flex-direction: column;
-  width: 336px;
+  width: 100%;
   background-color: #ffffff;
   margin-top: 9.6px;
   padding: 15.4px 11.5px;
@@ -19,7 +19,7 @@
 
 .headerLeft {
   min-height: 21px;
-  max-width: 290px;
+  max-width: 86%;
   flex-shrink: 0;
 }
 
@@ -54,7 +54,7 @@
   height: 28.8px;
   border-radius: 17.3px;
   background-color: #f9f9f9;
-  width: 283.2px;
+  width: 84.28%;
   padding-left: 11.5px;
 }
 
@@ -75,7 +75,7 @@
   font-family: PingFang SC;
   font-size: 11.5px;
   max-lines: 2;
-  max-width: 156px;
+  max-width: 40%;
   margin-left: 5px;
 }
 
@@ -166,7 +166,7 @@
   min-height: 38.4px;
   align-items: center;
   margin-top: 20px;
-  width: 280px;
+  width: 90%;
 }
 
 .sellInfoCon-mix {
@@ -175,7 +175,7 @@
   max-height: 38.4px;
   align-items: flex-start;
   margin-top: 10px;
-  width: 280px;
+  width: 90%;
 }
 
 .sellTag {

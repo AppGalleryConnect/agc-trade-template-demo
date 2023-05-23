@@ -116,7 +116,7 @@ export default {
   // 左滑
   handleSwipeItem(event) {
 	if (event.direction === "left" && event.distance >= 30) {
-	  this.marginLeft = `-150px`
+	  this.marginLeft = `-77px`
 	}
 	if (event.direction === "right" && event.distance >= 30) {
 	  this.marginLeft = `0px`

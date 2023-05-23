@@ -1,6 +1,7 @@
 .giftListCon {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .giftItem {
@@ -27,7 +28,7 @@
 }
 
 .giftBodyCon {
-  width: 177px;
+  width: 59.8%;
   height: 75px;
   display: flex;
   justify-content: space-between;
