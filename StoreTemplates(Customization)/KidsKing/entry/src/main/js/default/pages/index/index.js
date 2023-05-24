@@ -354,6 +354,9 @@ export default {
 
 	if (+userType === PregnantType.mother) {
 	  this.getParentConfigDispatch()
+	} else if (+userType === PregnantType.plan || +userType === PregnantType.normal) {
+      // 备孕，无计划（默认情况：无计划，没有登录） 宝宝提示语取数据模型的数据
+      this.getBabyTipDispatch() // 备孕中或无计划获取宝宝提示语
 	} else if (+userType === PregnantType.pregnant) {
 	  this.getPregnantConfigDispatch()
 	} else {
@@ -466,6 +469,34 @@ export default {
 	  console.error(`getParentConfigDispatch error, ${JSON.stringify(e)}`)
 	});
   },
+
+    // 获取宝宝提示语 plan/normal状态下会调用
+    getBabyTipDispatch() {
+        agconnect.lowCode().callDataModel({
+            modelId: "1157216261164302017", methodName: "list", status: 0, params: {}
+        }).then(res => {
+            const ret = res.getValue().ret;
+            if (ret.code !== 0) {
+                throw new Error(JSON.stringify(ret));
+            }
+            const list = res.getValue().data.records;
+            console.info(`getBabyTipDispatch list, ${JSON.stringify(list)}`)
+            const currentTips = list.filter(item => +item?.type === this.currentUserType).map((item) => {
+                let img = ''
+                return {
+                    img, text: item?.msg
+                }
+            }) || []
+            // 设置主信息
+            this.mainTopInfo = {
+                ...this.mainTopInfo,
+                babyTips: currentTips
+            }
+        }).catch(e => {
+            console.error(`getBabyTipDispatch error, ${JSON.stringify(e)}`)
+        });
+    },
+  
   // 孕期状态下获取配置信息
   getPregnantConfigDispatch() {
 	const params = {

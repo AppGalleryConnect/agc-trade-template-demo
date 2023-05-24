@@ -24,3 +24,5 @@ export const AGREEMENT_URLS = {
     CHILDREN_PERSONAL_INFO_PROTECTION_AGREEMENT: 'https://developer.huawei.com/consumer/cn/',
     HUAWEI_SERVICE_AGREEMENT: 'https://developer.huawei.com/consumer/cn/doc/start/agreement-0000001052728169',
 };
+
+export const PREFIX_CLOUDSTORAGE_URL = 'https://agc-storage-drcn.platform.dbankcloud.cn/v0/';

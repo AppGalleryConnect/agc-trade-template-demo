@@ -21,14 +21,30 @@ import "@hw-agconnect/core-harmony";
 import router from '@system.router';
 import { invokeWebView } from '../../common/invoke_webview';
 import storage from '@system.storage';
-import { LEVEL_BLACKGOLD } from '../../common/constants';
+import { LEVEL_BLACKGOLD, PREFIX_CLOUDSTORAGE_URL } from '../../common/constants';
 
 export default {
     // Start of auto-generated Super Visual code. DO NOT MODIFY
+    refreshlistt_broadcast_0do9e() {
+        agconnect.lowCode().callDataModel({
+            modelId: "1151283015352109505", methodName: "list", status: 0, params: {
+                orderBy: "createTime", orderType: "desc"
+            }
+        }).then(res => {
+            const ret = res.getValue().ret;
+            if (ret.code !== 0) {
+                throw new Error(JSON.stringify(ret));
+            }
+            this.listt_broadcast_0do9e = res.getValue().data.records;
+            ;
+        }).catch(e => {
+            ;
+        });
+    },
     refreshlistt_my_order_l6rfj() {
         agconnect.lowCode().callDataModel({
             modelId: "1150016801422242049", methodName: "list", status: 0, params: {
-                orderBy: "createTime", orderType: "asc"
+                orderBy: "order", orderType: "asc"
             }
         }).then(res => {
             const ret = res.getValue().ret;
@@ -44,7 +60,7 @@ export default {
     refreshlistt_my_assets_wsgm7() {
         agconnect.lowCode().callDataModel({
             modelId: "1150017286065680641", methodName: "list", status: 0, params: {
-                orderBy: "createTime", orderType: "asc"
+                orderBy: "order", orderType: "asc"
             }
         }).then(res => {
             const ret = res.getValue().ret;
@@ -60,7 +76,7 @@ export default {
     refreshlistt_my_common_use_r6rb8() {
         agconnect.lowCode().callDataModel({
             modelId: "1150017472418607361", methodName: "list", status: 0, params: {
-                orderBy: "createTime", orderType: "asc"
+                orderBy: "order", orderType: "asc"
             }
         }).then(res => {
             const ret = res.getValue().ret;
@@ -69,22 +85,6 @@ export default {
             }
             this.listt_my_common_use_r6rb8 = res.getValue().data.records;
             this.handleMyRecentlyData(res);
-        }).catch(e => {
-            ;
-        });
-    },
-    refreshlistt_broadcast_0do9e() {
-        agconnect.lowCode().callDataModel({
-            modelId: "1151283015352109505", methodName: "list", status: 0, params: {
-                orderBy: "createTime", orderType: "desc"
-            }
-        }).then(res => {
-            const ret = res.getValue().ret;
-            if (ret.code !== 0) {
-                throw new Error(JSON.stringify(ret));
-            }
-            this.listt_broadcast_0do9e = res.getValue().data.records;
-            ;
         }).catch(e => {
             ;
         });
@@ -107,39 +107,6 @@ export default {
     },
     data: {
         // Start of auto-generated Super Visual code. DO NOT MODIFY
-        listt_my_order_l6rfj: [{
-            id: "",
-            createTime: "",
-            updateTime: "",
-            owner: "",
-            createBy: "",
-            updateBy: "",
-            img: "",
-            text: "",
-            link: ""
-        }],
-        listt_my_assets_wsgm7: [{
-            id: "",
-            createTime: "",
-            updateTime: "",
-            owner: "",
-            createBy: "",
-            updateBy: "",
-            img: "",
-            text: "",
-            link: ""
-        }],
-        listt_my_common_use_r6rb8: [{
-            id: "",
-            createTime: "",
-            updateTime: "",
-            owner: "",
-            createBy: "",
-            updateBy: "",
-            img: "",
-            text: "",
-            link: ""
-        }],
         listt_broadcast_0do9e: [{
             id: "",
             createTime: "",
@@ -149,6 +116,42 @@ export default {
             updateBy: "",
             text: "",
             link: ""
+        }],
+        listt_my_order_l6rfj: [{
+            id: "",
+            createTime: "",
+            updateTime: "",
+            owner: "",
+            createBy: "",
+            updateBy: "",
+            pic: "",
+            name: "",
+            href: "",
+            order: 0
+        }],
+        listt_my_assets_wsgm7: [{
+            id: "",
+            createTime: "",
+            updateTime: "",
+            owner: "",
+            createBy: "",
+            updateBy: "",
+            name: "",
+            href: "",
+            pic: "",
+            order: 0
+        }],
+        listt_my_common_use_r6rb8: [{
+            id: "",
+            createTime: "",
+            updateTime: "",
+            owner: "",
+            createBy: "",
+            updateBy: "",
+            name: "",
+            href: "",
+            pic: "",
+            order: 0
         }],
         // End of auto-generated Super Visual code. DO NOT MODIFY
         isVip: false,
@@ -227,16 +230,21 @@ export default {
         }
         this.preloadFromStorage();
         // Start of auto-generated Super Visual code. DO NOT MODIFY
+        this.refreshlistt_broadcast_0do9e();
         this.refreshlistt_my_order_l6rfj();
         this.refreshlistt_my_assets_wsgm7();
         this.refreshlistt_my_common_use_r6rb8();
-        this.refreshlistt_broadcast_0do9e();
         // End of auto-generated Super Visual code. DO NOT MODIFY
 
     },
     handleMyOrderData(res) {
         this.listt_my_order_l6rfj.forEach((item, index) => {
-            this.myOrderList[index] = item;
+            this.myOrderList[index] = {
+                id: item.id,
+                img: PREFIX_CLOUDSTORAGE_URL + item.pic,
+                link: item.href,
+                text: item.name
+            };
         });
         this.myOrderList = [...this.myOrderList];
         storage.set({
@@ -246,7 +254,12 @@ export default {
     },
     handleMyAssetData(res) {
         this.listt_my_assets_wsgm7.forEach((item, index) => {
-            this.myAssetList[index] = item;
+            this.myAssetList[index] = {
+                id: item.id,
+                img: PREFIX_CLOUDSTORAGE_URL + item.pic,
+                link: item.href,
+                text: item.name
+            };
         });
         this.myAssetList = [...this.myAssetList];
         storage.set({
@@ -256,7 +269,12 @@ export default {
     },
     handleMyRecentlyData(res) {
         this.listt_my_common_use_r6rb8.forEach((item, index) => {
-            this.myRecentlyList[index] = item;
+            this.myRecentlyList[index] = {
+                id: item.id,
+                img: PREFIX_CLOUDSTORAGE_URL + item.pic,
+                link: item.href,
+                text: item.name
+            };
         });
         this.myRecentlyList = [...this.myRecentlyList];
         storage.set({
