@@ -19,6 +19,10 @@
     {
       "name": "entry_WebviewAbility",
       "value": "entry_WebviewAbility"
+    },
+    {
+      "name": "hwidlinkability_description",
+      "value": "hap sample empty service"
     }
   ]
 }

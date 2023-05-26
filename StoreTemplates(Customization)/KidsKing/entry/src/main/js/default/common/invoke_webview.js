@@ -18,6 +18,8 @@ import app from '@system.app';
 import storage from '@system.storage';
 import { COOKIE_DOMAIN } from '../common/constants';
 
+const ABILITY_CODE_WEBVIEW = 1001;
+
 export async function invokeWebView(data) {
     try {
         const loginInfo = await readFromStorage();
@@ -27,7 +29,7 @@ export async function invokeWebView(data) {
         const action = {
             bundleName: app.getInfo().appID,
             abilityName: 'com.kidsking.atomic.WebviewAbility',
-            messageCode: 1001,
+            messageCode: ABILITY_CODE_WEBVIEW,
             data,
             abilityType: 0,
             syncOption: 0,

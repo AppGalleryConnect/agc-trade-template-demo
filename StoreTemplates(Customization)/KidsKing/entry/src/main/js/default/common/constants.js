@@ -19,9 +19,9 @@ export const COOKIE_DOMAIN = '.cekid.com';
 export const LEVEL_BLACKGOLD = 4;
 
 export const AGREEMENT_URLS = {
-    PERSONAL_DECLARATION_AGREEMENT: 'https://developer.huawei.com/consumer/cn/',
-    PRIVACY_PROTECTION_POLICY: 'https://developer.huawei.com/consumer/cn/',
-    CHILDREN_PERSONAL_INFO_PROTECTION_AGREEMENT: 'https://developer.huawei.com/consumer/cn/',
+    PERSONAL_DECLARATION_AGREEMENT: 'https://passport.cekid.com/agreement',
+    PRIVACY_PROTECTION_POLICY: 'https://passport.cekid.com/privacyProtection',
+    CHILDREN_PERSONAL_INFO_PROTECTION_AGREEMENT: 'https://passport.cekid.com/childService',
     HUAWEI_SERVICE_AGREEMENT: 'https://developer.huawei.com/consumer/cn/doc/start/agreement-0000001052728169',
 };
 

@@ -24,6 +24,7 @@ import { uid, skey } from '../../common/mock_data';
 import { getKidsWantUserInfo, handleLoginFail, goToPersonalCenter } from '../../utils/login';
 import { invokeWebView } from '../../common/invoke_webview';
 import { AGREEMENT_URLS } from '../../common/constants';
+import { invokeHuaweiIdLinkAbility } from '../../common/invoke_link_hwid';
 
 export default {
     getUserInfo() {
@@ -52,6 +53,7 @@ export default {
         uid: '',
         skey: '',
         userInfo: null,
+        interval: null,
     },
     onInit() {
         if (this.type === 'login') {
@@ -94,6 +96,7 @@ export default {
                     clearInterval(interval);
                 }
             }, 1000);
+            this.interval = interval;
         }).catch(error => {
             //验证码申请失败
             prompt.showToast({
@@ -121,17 +124,28 @@ export default {
     },
     async bindPhone() {
         this.loginBtnLoading = true;
+        let credential = PhoneAuthProvider.credentialWithVerifyCode("86", this.phoneNumber, this.verifyCode);
         try {
-            let credential = PhoneAuthProvider.credentialWithVerifyCode("86", this.phoneNumber, this.verifyCode);
-            const user = await agconnect.auth().getCurrentUser();
-            const linkRes = await user.link(credential);
-            const token = await linkRes.getUser().getToken(true);
+            // 注销当前华为账号
+            await agconnect.auth().deleteUser();
+            // 登录手机号
+            const phoneRes = await agconnect.auth().signIn(credential);
+            const phoneUser = phoneRes.getUser();
+            const token = await phoneUser.getToken(false);
+            // 关联华为账号
+            const linkRes = await invokeHuaweiIdLinkAbility();
+            if (linkRes.code !== 0) {
+                return handleLoginFail(linkRes);
+            }
             await getKidsWantUserInfo(uid, skey);
             goToPersonalCenter();
             this.loginBtnLoading = false;
         } catch (e) {
-            handleLoginFail(e);
             this.loginBtnLoading = false;
+            this.disableRequestVerifyCode = false;
+            clearInterval(this.interval)
+            this.requestVerifyCodeText = "获取验证码";
+            handleLoginFail(e);
         }
     },
     async loginByPhone() {

@@ -70,6 +70,13 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
+      },
+      {
+        "name": "com.kidsking.atomic.HwIDLinkAbility",
+        "description": "$string:hwidlinkability_description",
+        "type": "service",
+        "backgroundModes": [],
+        "icon": "$media:icon"
       }
     ],
     "distro": {

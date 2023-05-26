@@ -199,7 +199,7 @@ export default {
             id: '', img: '', text: '', link: ''
         }],
     },
-    async onInit() {
+    async onShow() {
         const currentUser = await agconnect.auth().getCurrentUser();
         if (!currentUser) {
             return router.replace({

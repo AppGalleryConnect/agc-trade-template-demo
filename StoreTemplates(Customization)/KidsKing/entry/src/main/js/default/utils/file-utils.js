@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-import "@hw-agconnect/lowcode-harmony";
-import agconnect from "@hw-agconnect/core-harmony";
+import { PREFIX_CLOUDSTORAGE_URL } from '../common/constants';
 
 // 将dataModel返回值中的云存储路径转化为下载链接
 export async function getFileUrls(list, key = 'pic') {
-  try {
 	if (list && list instanceof Array) {
-	  let fileIds = [];
-	  list.forEach((item => {
-		item[key] && fileIds.push(item[key]);
-	  }));
-	  let fileUrls = await agconnect.lowCode().getFileURL(fileIds);
 	  list.forEach(item => {
-		item[key] = fileUrls[item[key]];
+        if (item[key]){
+          item[key] = PREFIX_CLOUDSTORAGE_URL + item[key];
+        }
 	  });
 	}
 	return list;
-  } catch (error) {
-	console.error(`getFileUrls error, ${JSON.stringify(error)}`)
-	return list;
-  }
 }

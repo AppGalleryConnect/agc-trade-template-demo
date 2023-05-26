@@ -21,11 +21,10 @@ import "@hw-agconnect/lowcode-harmony";
 import "@hw-agconnect/auth-harmony";
 import "@hw-agconnect/core-harmony";
 import storage from '@system.storage';
-// import dataStorage from '@ohos.data.storage';
-import { getFileUrls } from '../../utils/file-utils'
-import { PregnantType, ArticleTitle, BabyStatus, BabyImgMap } from './config'
+import { getFileUrls } from '../../utils/file-utils';
+import { PregnantType, ArticleTitle, BabyStatus, BabyImgMap } from './config';
 import { invokeWebView } from '../../common/invoke_webview';
-
+import { reportOnClickAndGlanceDispatch } from '../../utils/report-tracker';
 
 export default {
   data: {
@@ -182,7 +181,6 @@ export default {
   },
   onInit() {
 	// this.pageLoading = true
-	this.setInitDataFromStorage()
 	this.getCookieInStorage()
 	// this.actionsInLogin()
 	// 页面初始化时设置顶部状态栏初始颜色，模拟沉浸式效果
@@ -190,7 +188,24 @@ export default {
 	  this.windowClass = data;
 	  this.setStatusBarColor(this.initStatusBarColor)
 	})
+	// 数据打点
+	reportOnClickAndGlanceDispatch(this.buildReportTraceParam());
   },
+	// 构造数据打点入参
+	buildReportTraceParam() {
+		const params = {
+			// 	页面浏览上报 10000，点击事件上报 20000
+			"logtype":10000,
+			"pagelevelid":"121013899",
+			"clickid":"200010",
+			"sessionid":"123456",
+			"pvid":"123456",
+			"userid": this.loginInfo.uid,
+			"guid": "4a7fea88-b683-d087-xxxx-xxxxxxxxxxx",
+		};
+		return params;
+	},
+
   async setInitDataFromStorage() {
 	storage.get({
 	  key: 'initHomeData',
@@ -352,16 +367,16 @@ export default {
 	  this.setStatusBarColor('#ffd6e4')
 	}
 
-	if (+userType === PregnantType.mother) {
-	  this.getParentConfigDispatch()
-	} else if (+userType === PregnantType.plan || +userType === PregnantType.normal) {
-      // 备孕，无计划（默认情况：无计划，没有登录） 宝宝提示语取数据模型的数据
-      this.getBabyTipDispatch() // 备孕中或无计划获取宝宝提示语
-	} else if (+userType === PregnantType.pregnant) {
-	  this.getPregnantConfigDispatch()
-	} else {
-	  this.getArticleList()
-	}
+	  if (+userType === PregnantType.mother) {
+		  this.getParentConfigDispatch()
+	  } else if (+userType === PregnantType.plan || +userType === PregnantType.normal) {
+		  // 备孕，无计划（默认情况：无计划，没有登录） 宝宝提示语取数据模型的数据
+		  this.getBabyTipDispatch() // 备孕中或无计划获取宝宝提示语
+	  } else if (+userType === PregnantType.pregnant) {
+		  this.getPregnantConfigDispatch()
+	  } else {
+		  this.getArticleList()
+	  }
   },
   getBabyInfoDispatch() {
 	agconnect.lowCode().callConnector({
@@ -470,40 +485,40 @@ export default {
 	});
   },
 
-    // 获取宝宝提示语 plan/normal状态下会调用
-    getBabyTipDispatch() {
-        agconnect.lowCode().callDataModel({
-            modelId: "1157216261164302017", methodName: "list", status: 0, params: {}
-        }).then(res => {
-            const ret = res.getValue().ret;
-            if (ret.code !== 0) {
-                throw new Error(JSON.stringify(ret));
-            }
-            const list = res.getValue().data.records;
-            console.info(`getBabyTipDispatch list, ${JSON.stringify(list)}`)
-            const currentTips = list.filter(item => +item?.type === this.currentUserType).map((item) => {
-                let img = ''
-                return {
-                    img, text: item?.msg
-                }
-            }) || []
-            // 设置主信息
-            this.mainTopInfo = {
-                ...this.mainTopInfo,
-                babyTips: currentTips
-            }
-        }).catch(e => {
-            console.error(`getBabyTipDispatch error, ${JSON.stringify(e)}`)
-        });
-    },
-  
+// 获取宝宝提示语 plan/normal状态下会调用
+getBabyTipDispatch() {
+	agconnect.lowCode().callDataModel({
+		modelId: "1157216261164302017", methodName: "list", status: 0, params: {}
+	}).then(res => {
+		const ret = res.getValue().ret;
+		if (ret.code !== 0) {
+			throw new Error(JSON.stringify(ret));
+		}
+		const list = res.getValue().data.records;
+		console.info(`getBabyTipDispatch list, ${JSON.stringify(list)}`)
+		const currentTips = list.filter(item => +item?.type === this.currentUserType).map((item) => {
+			let img = ''
+			return {
+				img, text: item?.msg
+			}
+		}) || []
+		// 设置主信息
+		this.mainTopInfo = {
+			...this.mainTopInfo,
+			babyTips: currentTips
+		}
+	}).catch(e => {
+		console.error(`getBabyTipDispatch error, ${JSON.stringify(e)}`)
+	});
+},
+
   // 孕期状态下获取配置信息
   getPregnantConfigDispatch() {
 	const params = {
 	  uid: this.loginInfo.uid, skey: this.loginInfo.skey, day_unix: new Date().valueOf().toString().slice(0, 10)
 	}
 	agconnect.lowCode().callConnector({
-	  connectorId: "1143545804447835456", methodName: "pregnentConfig", params: JSON.stringify(params)
+	  connectorId: "1164446716846427008", methodName: "pregnentConfig", params: JSON.stringify(params)
 	}).then(res => {
 	  const ret = res.getValue().ret;
 	  if (ret.code !== 0) {
@@ -555,7 +570,7 @@ export default {
 	  params.week = this.pregnantConfig.today.day_time?.week_num
 	}
 	agconnect.lowCode().callConnector({
-	  connectorId: "1143545804447835456", methodName: "getArticleList", params: JSON.stringify(params)
+	  connectorId: "1164325481831525056", methodName: "getArticleList", params: JSON.stringify(params)
 	}).then(res => {
 	  const ret = res.getValue().ret;
 	  if (ret.code !== 0) {

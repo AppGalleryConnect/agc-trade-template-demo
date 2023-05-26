@@ -101,6 +101,10 @@ export function handleLoginFail(e) {
         return prompt.showToast({
             message: '验证码错误'
         });
+    } else if (e && e.code === 203818039) {
+        return prompt.showToast({
+            message: '该手机号已绑定其它华为账号，请更换手机号'
+        });
     } else {
         prompt.showToast({
             message: '登录失败，请稍后重试'
