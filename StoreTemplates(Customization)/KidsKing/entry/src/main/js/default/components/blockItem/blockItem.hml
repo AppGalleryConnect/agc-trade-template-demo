@@ -29,7 +29,7 @@
 				</div>
 			</block>
 		</div>
-		<div class="headerRight" onclick="handleClickStoreRightIcon({{ blockItem.Type }}, {{ blockItem.PmTimes }})">
+		<div class="headerRight" onclick="handleClickStoreRightIcon">
 			<block if="{{ blockItem.Type === 1 }}">
 				<text class="sellBtn">{{ blockItem.PmTimes > 0 ? '再逛逛' : '去凑单' }} ></text>
 			</block>
@@ -77,7 +77,8 @@
 						<text class="sellTag">{{ subListItem.Name }}</text>
 						<text class="sellInfo">{{ subListItem.Desc }}</text>
 					</div>
-					<text class="sellBtn">{{ getSellExtraText(subListItem.PmType, subListItem.PmTimes, subListItem.GList) }} >
+					<text class="sellBtn" onclick="handleClickSellInfoRightBtn(subListItem)">{{
+						getSellExtraText(subListItem.PmType, subListItem.PmTimes, subListItem.GList) }} >
 					</text>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 <element name='MoneyText' src='../../components/moneyText/moneyText.hml'></element>
-<div class="giftItem">
+<div class="giftItem" onclick="handleClickGiftItem">
 	<div class="giftImgCon">
 		<image src="{{ giftItem.Pic }}" class="giftImg"></image>
 	</div>

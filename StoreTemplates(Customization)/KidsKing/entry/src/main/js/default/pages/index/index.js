@@ -304,7 +304,6 @@ export default {
 	this.getBabyInfoDispatch();
 	this.getArticleTagDispatch(); // 文章标签
 	this.getBabyPicDispatch(); // 孕期图片
-	this.getAdListDispatch(); // 广告列表
 	this.getAdTypeDispatch(); // 广告排版
 	this.getHeadIconsListDispatch(); // 头部icon
 	this.getQuickEntryListDispatch(); // 快捷入口
@@ -354,6 +353,9 @@ export default {
 
 	this.currentUserType = userType
 
+    // 获取首页广告图片信息，需要在登陆后获取到currentUserType字段后，才能调用getAdListDispatch接口。
+	this.getAdListDispatch(); // 广告列表
+
 	// 暂无计划显示添加孕育信息按钮
 	this.isShowAddBtn = +userType === PregnantType.normal
 
@@ -372,6 +374,7 @@ export default {
 	  } else if (+userType === PregnantType.plan || +userType === PregnantType.normal) {
 		  // 备孕，无计划（默认情况：无计划，没有登录） 宝宝提示语取数据模型的数据
 		  this.getBabyTipDispatch() // 备孕中或无计划获取宝宝提示语
+		  this.getArticleList()
 	  } else if (+userType === PregnantType.pregnant) {
 		  this.getPregnantConfigDispatch()
 	  } else {
@@ -380,7 +383,7 @@ export default {
   },
   getBabyInfoDispatch() {
 	agconnect.lowCode().callConnector({
-	  connectorId: "1151261566537100224", methodName: "getBabyInfo", params: JSON.stringify({
+	  connectorId: "1166651240050916672", methodName: "getBabyInfo", params: JSON.stringify({
 		uid: this.loginInfo.uid, skey: this.loginInfo.skey, scene: this.scene
 	  })
 	}).then(res => {
@@ -439,7 +442,7 @@ export default {
 	if (isActive) return;
 	this.pageLoading = true;
 	agconnect.lowCode().callConnector({
-	  connectorId: "1151261566537100224", methodName: "setBabyInfo", params: JSON.stringify({
+	  connectorId: "1166651240050916672", methodName: "setBabyInfo", params: JSON.stringify({
 		uid: this.loginInfo.uid,
 		skey: this.loginInfo.skey,
 		b_id: babyId,
@@ -769,10 +772,12 @@ getBabyTipDispatch() {
 	  return {
 		href: item.href,
 		img: item.pic,
-		id: item.id
+		id: item.id,
+		type: item.type
 	  }
 	}) || []
-	this.swiperList = arr;
+
+	this.swiperList = arr.filter(item => item.type === this.currentUserType);
   },
   // 孕期图片成功回调
   async getBabyPicFetchSuccess(res) {

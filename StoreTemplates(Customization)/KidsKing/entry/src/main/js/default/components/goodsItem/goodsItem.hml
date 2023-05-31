@@ -8,7 +8,7 @@
 			<image if="{{ useless }}" src="/media/cart/useless.png" class="uselessImg"></image>
 			<Checkbox else checked="{{ goodsItem.IsCd }}" @on-select="handleSelectGoods" @on-unselect="handleUnselectGoods">
 			</Checkbox>
-			<div class="goodsContent">
+			<div class="goodsContent" onclick="handleClickGoodsItem">
 				<div class="goodsImgCon">
 					<image src="{{ goodsItem.Pic }}" class="goodsImg"></image>
 					<div class="stockCon" if="{{ goodsItem.StockNum > 0 && goodsItem.StockNum < 10 && ! useless }}">
@@ -26,7 +26,7 @@
 						</block>
 						<block else>
 							<MoneyText money="{{ goodsItem.Sell }}"></MoneyText>
-							<NumberSelect min="{{ goodsItem.Min }}"
+							<NumberSelect min="{{ Math.max(goodsItem.Min, goodsItem.Times) }}"
 							              max="{{ goodsItem.StockNum ? Math.min(goodsItem.Max, goodsItem.StockNum) : goodsItem.Max }}"
 							              numbers="{{ goodsItem.Num }}" @on-plus="handlePlusCount" @on-minus="handleMinusCount">
 							</NumberSelect>

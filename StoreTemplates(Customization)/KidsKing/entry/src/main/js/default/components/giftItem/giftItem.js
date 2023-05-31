@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import { debounce } from '../../utils/utils';
+import { invokeWebView } from '../../common/invoke_webview';
+
 export default {
   props: {
 	giftItem: {
@@ -36,5 +39,11 @@ export default {
 	},
   },
 
-  computed: {}
+  computed: {},
+
+  handleClickGiftItem: debounce(function () {
+	invokeWebView({
+	  url: `https://w.cekid.com/item/${this.giftItem.Id}.html?cmd=kwproduct&id=${this.giftItem.Id}`
+	})
+  }, 500, true)
 }

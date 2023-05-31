@@ -176,9 +176,11 @@ export default {
   },
   queryDeliveryTips() {
 	agconnect.lowCode().callConnector({
-	  connectorId, methodName: "queryDeliveryTips", params: JSON.stringify({})
+	  connectorId, methodName: "queryDeliveryTips", params: JSON.stringify({
+		path: "queryDeliveryTips"
+	  })
 	}).then(res => {
-	  this.queryDelivery = JSON.parse(res.getValue().response)?.deliveryTips
+	  this.queryDelivery = JSON.parse(res.getValue().response)?.queryDeliveryTips
 	}).catch(e => {
 	  console.error(`queryDeliveryTips error, ${JSON.stringify(e)}`)
 	});

@@ -179,7 +179,7 @@
 }
 
 .sellTag {
-  width: 27px;
+  min-width: 27px;
   height: 13.4px;
   border-radius: 6.7px;
   border: 0.5px solid #ff397e;
@@ -188,10 +188,12 @@
   font-family: PingFang SC;
   font-size: 9.6px;
   margin-top: 1px;
+  max-lines: 1;
+  padding: 0 4px;
 }
 
 .sellInfo {
-  width: 180px;
+  max-width: 180px;
   min-height: 13.4px;/*  max-height: 34.6px;*/
   color: #262626;
   font-family: PingFang SC;

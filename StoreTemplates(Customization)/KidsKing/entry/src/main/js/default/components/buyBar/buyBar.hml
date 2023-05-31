@@ -3,7 +3,7 @@
 
 <block>
 	<div if="{{ showCheapDialog }}" class="cheapDialog">
-		<div class="grayBg" onclick="handleToggleCheapDialog"></div>
+		<div class="grayBg" grab:touchstart.bubble="handleToggleCheapDialog"></div>
 		<div class="cheapContent" onclick="handleDoNothing">
 			<div class="title">
 				<div class="closeIcon"></div>
@@ -93,10 +93,11 @@
 		<div else class="rightContent">
 			<div class="infoCon">
 				<div class="totalCon">
+					<text class="tipText" if="{{ showTotal === 0 }}">不含运费&税费</text>
 					<text class="totalText">合计</text>
 					<MoneyText money="{{ showTotal }}"></MoneyText>
 				</div>
-				<div class="totalTipCon">
+				<div class="totalTipCon" if="{{ showTotal > 0 }}">
 					<text class="tipText">不含运费&税费</text>
 					<text onclick="handleToggleCheapDialog" class="cheap">优惠￥{{ formatNum(cartData.TotalDiscount) }}
 					</text>

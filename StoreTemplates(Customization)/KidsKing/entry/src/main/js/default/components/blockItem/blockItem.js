@@ -17,6 +17,7 @@
 import agconnect from "@hw-agconnect/core-harmony";
 import { invokeWebView } from '../../common/invoke_webview';
 import { connectorId } from '../../pages/cart/constants'
+import { debounce } from '../../utils/utils'
 
 export default {
   props: {
@@ -127,6 +128,16 @@ export default {
 	// 满减 组合
 	return PmTimes > 0 ? '再逛逛' : '去凑单'
   },
+  // 点击顶部促销块右侧的文本按钮 去换购、重新换购、再逛逛、去凑单
+  handleClickSellInfoRightBtn: debounce(function (subListItem) {
+	const { PmType, PmTimes, Id } = subListItem;
+	// 再逛逛
+	if (PmType !== 3 && PmTimes > 0) {
+	  invokeWebView({
+		url: `https://so.cekid.com/home.html#/result/product/mall?ruleid=${Id}`
+	  })
+	}
+  }, 500, true),
   // 获取融合促销块右侧的文本显示
   getMixSellExtraText(Type, PmTimes, GList) {
 	if (Type === 26) {
@@ -138,16 +149,17 @@ export default {
 	return PmTimes > 0 ? '领赠品' : '查看赠品'
   },
   // 点击商家名称跳转到url
-  handleClickStoreTitle(url) {
+  handleClickStoreTitle: debounce(function (url) {
 	if (!url) return;
 	invokeWebView({
 	  url
 	});
-  },
-  // 右侧小按钮
-  handleClickStoreRightIcon(blockType, PmTimes) {
+  }, 500, true),
+  // 点击BlockItem的右侧小按钮
+  handleClickStoreRightIcon() {
+	const {Type, PmTimes} = this.blockItem;
 	// 跨店
-	if (blockType === 1) {
+	if (Number(Type) === 1) {
 	  if (PmTimes > 0) {
 		// 再逛逛
 	  } else {
@@ -155,7 +167,7 @@ export default {
 	  }
 	}
 	// 商家 显示运费弹窗
-	if (blockType === 2) {
+	if (Number(Type) === 2) {
 	  this.$emit('showTransportDialog');
 	}
   },

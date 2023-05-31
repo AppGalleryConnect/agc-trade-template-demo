@@ -16,6 +16,8 @@
 
 import agconnect from "@hw-agconnect/core-harmony";
 import { connectorId } from '../../pages/cart/constants'
+import { debounce } from '../../utils/utils'
+import { invokeWebView } from '../../common/invoke_webview';
 
 export default {
   props: {
@@ -124,8 +126,16 @@ export default {
   },
 
   // 找相似
-  handleFindLike() {
-  },
+  handleFindLike: debounce(function () {
+	// todo
+  }, 500, true),
+
+  // 点击商品，跳转到商品详情页
+  handleClickGoodsItem: debounce(function () {
+	invokeWebView({
+	  url: `https://w.cekid.com/item/${this.goodsItem.Id}.html?cmd=kwproduct&id=${this.goodsItem.Id}`
+	})
+  }, 500, true),
 
   // 删除按钮 打开删除弹窗
   handleDeleteGoods() {
