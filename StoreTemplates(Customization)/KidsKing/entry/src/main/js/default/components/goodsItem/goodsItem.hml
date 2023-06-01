@@ -16,21 +16,28 @@
 					</div>
 				</div>
 				<div class="goodsBodyCon">
-					<text class="title" style="color: {{ useless ? '#cccccc' : '#262626' }}">{{
-						goodsItem.Title }}</text>
-					<text class="size" style="color: {{ useless ? '#cccccc' : '#999999' }}">{{ goodsItem.Attr }}</text>
-					<div class="footerCon">
-						<block if="{{ useless }}">
-							<text class="uselessReason">{{ goodsItem.Reason }}</text>
-							<button class="findLikeBtn">找相似</button>
-						</block>
-						<block else>
-							<MoneyText money="{{ goodsItem.Sell }}"></MoneyText>
-							<NumberSelect min="{{ Math.max(goodsItem.Min, goodsItem.Times) }}"
-							              max="{{ goodsItem.StockNum ? Math.min(goodsItem.Max, goodsItem.StockNum) : goodsItem.Max }}"
-							              numbers="{{ goodsItem.Num }}" @on-plus="handlePlusCount" @on-minus="handleMinusCount">
-							</NumberSelect>
-						</block>
+					<div class="goodsBodyContentCon">
+						<text class="title" style="color: {{ useless ? '#cccccc' : '#262626' }}">{{
+							goodsItem.Title }}</text>
+						<text class="size" style="color: {{ useless ? '#cccccc' : '#999999' }}">{{ goodsItem.Attr }}</text>
+						<div class="footerCon">
+							<block if="{{ useless }}">
+								<text class="uselessReason">{{ goodsItem.Reason }}</text>
+								<button class="findLikeBtn">找相似</button>
+							</block>
+							<block else>
+								<MoneyText color="{{ goodsItem.PreferPrice ? '#262626' : '#FF397E' }}" money="{{ goodsItem.Sell }}">
+								</MoneyText>
+								<NumberSelect min="{{ Math.max(goodsItem.Min, goodsItem.Times) }}"
+								              max="{{ goodsItem.StockNum ? Math.min(goodsItem.Max, goodsItem.StockNum) : goodsItem.Max
+										              }}" numbers="{{ goodsItem.Num }}" @on-plus="handlePlusCount"
+								              @on-minus="handleMinusCount"></NumberSelect>
+							</block>
+						</div>
+					</div>
+					<div class="preferPriceCon" if="{{ goodsItem.PreferPrice }}">
+						<text class="preferPriceText">预计到手价</text>
+						<MoneyText money="{{ goodsItem.PreferPrice }}"></MoneyText>
 					</div>
 				</div>
 			</div>

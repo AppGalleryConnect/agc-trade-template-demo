@@ -122,7 +122,8 @@ export default {
 	  owner: "",
 	  createBy: "",
 	  updateBy: "",
-	  type: 0
+	  type: 1,
+	  pregnantType: 4
 	}],
 	title: '孩子王孕育',
 	isShowDialog: false,
@@ -304,7 +305,6 @@ export default {
 	this.getBabyInfoDispatch();
 	this.getArticleTagDispatch(); // 文章标签
 	this.getBabyPicDispatch(); // 孕期图片
-	this.getAdTypeDispatch(); // 广告排版
 	this.getHeadIconsListDispatch(); // 头部icon
 	this.getQuickEntryListDispatch(); // 快捷入口
 
@@ -355,6 +355,7 @@ export default {
 
     // 获取首页广告图片信息，需要在登陆后获取到currentUserType字段后，才能调用getAdListDispatch接口。
 	this.getAdListDispatch(); // 广告列表
+	this.getAdTypeDispatch(); // 广告排版
 
 	// 暂无计划显示添加孕育信息按钮
 	this.isShowAddBtn = +userType === PregnantType.normal
@@ -675,8 +676,9 @@ getBabyTipDispatch() {
 	  if (ret.code !== 0) {
 		throw new Error(JSON.stringify(ret));
 	  }
-	  this.adTypeRes = res.getValue().data.records;
-	  this.swiperType = this.adTypeRes[0].type;
+	  this.adTypeResList = res.getValue().data.records;
+	  this.adTypeRes = this.adTypeResList.find(item => item.pregnantType === this.currentUserType);
+	  this.swiperType = this.adTypeRes.type;
 	}).catch(e => {
 	  console.error(`getAdTypeDispatch error, ${JSON.stringify(e)}`)
 	});

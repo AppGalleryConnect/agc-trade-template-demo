@@ -1,8 +1,8 @@
 <div class="moneyCon">
-	<text class="small">¥</text>
-	<text class="inter">{{ inter }}</text>
+	<text class="small" style="color: {{ color }}">¥</text>
+	<text class="inter" style="color: {{ color }}">{{ inter }}</text>
 	<block if="{{ decimal }}">
-		<text class="small left">.</text>
-		<text class="small">{{ decimal }}</text>
+		<text class="small left" style="color: {{ color }}">.</text>
+		<text class="small" style="color: {{ color }}">{{ decimal }}</text>
 	</block>
 </div>

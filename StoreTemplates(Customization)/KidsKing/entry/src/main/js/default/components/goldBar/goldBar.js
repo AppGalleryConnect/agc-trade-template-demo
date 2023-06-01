@@ -19,4 +19,9 @@ export default {
 	str: '',
 	isGold: 0
   },
+  handleOpenBlackGold() {
+	invokeWebView({
+	  url: `url`
+	})
+  }
 }

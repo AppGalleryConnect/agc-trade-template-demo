@@ -93,11 +93,11 @@
 		<div else class="rightContent">
 			<div class="infoCon">
 				<div class="totalCon">
-					<text class="tipText" if="{{ showTotal === 0 }}">不含运费&税费</text>
+					<text class="tipText" if="{{ formatNum(cartData.TotalDiscount) === 0 }}">不含运费&税费</text>
 					<text class="totalText">合计</text>
 					<MoneyText money="{{ showTotal }}"></MoneyText>
 				</div>
-				<div class="totalTipCon" if="{{ showTotal > 0 }}">
+				<div class="totalTipCon" if="{{ formatNum(cartData.TotalDiscount) > 0 }}">
 					<text class="tipText">不含运费&税费</text>
 					<text onclick="handleToggleCheapDialog" class="cheap">优惠￥{{ formatNum(cartData.TotalDiscount) }}
 					</text>

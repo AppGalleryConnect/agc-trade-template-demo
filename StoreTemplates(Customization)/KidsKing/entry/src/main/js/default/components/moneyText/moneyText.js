@@ -19,6 +19,7 @@ export default {
 	money: {
 	  default: 0,
 	},
+	color: '#ff397e',
   },
   computed: {
 	inter() {
