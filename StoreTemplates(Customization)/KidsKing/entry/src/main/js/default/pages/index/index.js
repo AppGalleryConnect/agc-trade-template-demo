@@ -21,6 +21,7 @@ import "@hw-agconnect/lowcode-harmony";
 import "@hw-agconnect/auth-harmony";
 import "@hw-agconnect/core-harmony";
 import storage from '@system.storage';
+import prompt from '@system.prompt';
 import { getFileUrls } from '../../utils/file-utils';
 import { PregnantType, ArticleTitle, BabyStatus, BabyImgMap } from './config';
 import { invokeWebView } from '../../common/invoke_webview';
@@ -816,10 +817,23 @@ getBabyTipDispatch() {
 	  uri: 'pages/personalCenter/personalCenter',
 	});
   },
-  // 跳转到宝宝信息维护页
-  handleJumpToBabyInfoConfig() {
+  // 添加宝宝
+  handleToAddBaby() {
+	if (this.babyList.length >= 5) {
+	  return prompt.showToast({
+		message: '最多支持添加5个宝宝哦',
+	  });
+	}
 	invokeWebView({
 	  url: `https://w.cekid.com/user/baby-info.html?isBabyInfo=1`
+	});
+  },
+  // 跳转到宝宝信息维护页
+  handleJumpToBabyInfoConfig(event) {
+	event.stopPropagation?.()
+	const {babyId} = event.target.attr.data;
+	invokeWebView({
+	  url: `https://w.cekid.com/user/baby-info.html?isBabyInfo=1&bid=${babyId}`
 	});
   },
   // 跳转至文章详情页

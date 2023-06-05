@@ -15,5 +15,7 @@
  */
 
 export default {
-  props: {},
+  props: {
+	isShow: false,
+  },
 }

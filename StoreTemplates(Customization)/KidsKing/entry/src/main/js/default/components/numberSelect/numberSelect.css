@@ -4,12 +4,13 @@
   align-items: center;
   border-radius: 4px;
   border: 0.5px solid #dddddd;
+  overflow: hidden;
 }
 
 
 .input {
-  width: 28.8px;
-  height: 21.1px;
+  width: 29px;
+  height: 21px;
   border: 0;
   border-radius: 0px;
   background-color: #ffffff;
@@ -25,10 +26,11 @@
 }
 
 .numBtn {
-  width: 21.1px;
-  height: 21.1px;
+  width: 21px;
+  height: 21px;
   border-radius: 0;/*  border: 0.5px solid #dddddd;*/
   background-color: #ffffff;/*  overflow: hidden;*/
   text-color: #262626;
   overflow: hidden;
+  border-radius: 4px;
 }

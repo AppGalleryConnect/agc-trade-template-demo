@@ -4,7 +4,7 @@
 <block>
 	<div if="{{ showCheapDialog }}" class="cheapDialog">
 		<div class="grayBg" grab:touchstart.bubble="handleToggleCheapDialog"></div>
-		<div class="cheapContent" onclick="handleDoNothing">
+		<div class="cheapContent" grab:touchstart.bubble="handleDoNothing">
 			<div class="title">
 				<div class="closeIcon"></div>
 				<text class="titleText">优惠明细</text>

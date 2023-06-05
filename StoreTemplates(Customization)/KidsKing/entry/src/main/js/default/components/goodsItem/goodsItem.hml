@@ -49,7 +49,8 @@
 		</div>
 	</div>
 	<div class="editCon">
-		<text class="findLikeBtnInEdit" onclick="handleFindLike">找相似</text>
+	
+	<!--<text class="findLikeBtnInEdit" onclick="handleFindLike">找相似</text>-->
 		<text class="delBtnInEdit" onclick="handleDeleteGoods">删除</text>
 	</div>
 	<dialog id="dialogDelete" style="margin-bottom: 50%;">

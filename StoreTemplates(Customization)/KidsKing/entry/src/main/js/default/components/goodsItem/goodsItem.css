@@ -1,6 +1,6 @@
 #goodsItemContainer {
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
@@ -40,6 +40,8 @@
   width: 96px;
   height: 96px;
   max-height: 96px;
+  min-width: 96px;
+  min-height: 96px;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -129,8 +131,8 @@
 }
 
 .uselessImg {
-  width: 27.8px;
-  height: 13.4px;
+  width: 29px;
+  height: 12.8px;
 }
 
 .uselessReason {
@@ -151,10 +153,11 @@
 }
 
 .editCon {
-  width: 148px;
+  width: 67px;
   height: 96px;
   flex-shrink: 0;
   margin-left: 14px;
+  right: -12px;
 }
 
 .findLikeBtnInEdit {

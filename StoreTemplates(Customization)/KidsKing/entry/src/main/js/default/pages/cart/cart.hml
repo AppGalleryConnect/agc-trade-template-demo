@@ -17,7 +17,7 @@
 					<image class="editImg" else src="/media/cart/edit.png" onclick="handleToggleEditing"></image>
 				</block>
 			</div>
-			<Loading if="{{ pageLoading }}"></Loading>
+			<Loading is-show="{{ pageLoading }}"></Loading>
 			<Empty if="{{ showEmpty }}"></Empty>
 			<block else>
 				<div id="storeList">

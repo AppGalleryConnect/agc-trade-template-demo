@@ -21,7 +21,7 @@
   color: #333333;
   font-family: PingFang SC;
   font-size: 11.5px;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .rightContent {
@@ -261,13 +261,13 @@
 
 .diffBuy_grayBg {
   position: absolute;
-  width: 360px;
+  width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .diffBuyContent {
-  width: 360px;
+  width: 100%;
   height: 180px;
   border-radius: 0px 0px 10px 10px;
   background-color: #ffffff;
@@ -446,6 +446,7 @@
   font-family: PingFang SC;
   font-size: 13.4px;
   width: 100%;
+  text-align: center;
 }
 
 .footer {

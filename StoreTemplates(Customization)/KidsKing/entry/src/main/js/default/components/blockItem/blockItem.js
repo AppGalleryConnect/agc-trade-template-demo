@@ -15,6 +15,7 @@
  */
 
 import agconnect from "@hw-agconnect/core-harmony";
+import prompt from '@system.prompt';
 import { invokeWebView } from '../../common/invoke_webview';
 import { connectorId } from '../../pages/cart/constants'
 import { debounce } from '../../utils/utils'
@@ -217,10 +218,29 @@ export default {
 	console.info(`cartData e, ${JSON.parse(err)}`)
 	eventBus.emit('setPageLoading', false)
   },
-  // 快速清理
+  // 打开快速清理弹窗
   handleQuickDelete() {
+	prompt.showDialog({
+	  title: '删除',
+	  message: '确认要删除吗？',
+	  buttons: [
+		{
+		  text: '取消', color: '#262626'
+		},
+		{
+		  text: '确认', color: '#ff397e'
+		},
+	  ],
+	  success: ({index}) => {
+		if (index === 1) {
+		  this.confirmQuickDelete()
+		}
+	  },
+	});
+  },
+  // 确认快速清理
+  confirmQuickDelete() {
 	const {eventBus, loginInfo} = this.$app.$def;
-	this.$element('dialogDelete').close()
 	eventBus.emit('setPageLoading', true)
 
 	const ids = this.blockItem.Items.map(item => item.Id).join(',')

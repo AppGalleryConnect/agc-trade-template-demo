@@ -131,7 +131,7 @@ export default {
   setCartData(data) {
 	const currentScrollHeight = this.$element('storeList').getScrollOffset().y
 	this.cartData = data;
-	// 数据重新赋值后滚动条会重置
+	// 数据重新赋值后滚动条会重置 目前因为不会生效 因为不支持滚动到固定高度
 	setTimeout(() => {
 	  this.$element('storeList').scrollTo({
 		duration: 0, position: currentScrollHeight

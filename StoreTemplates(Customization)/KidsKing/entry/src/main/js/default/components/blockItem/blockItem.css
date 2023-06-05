@@ -28,14 +28,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 9.6px;
+  margin-left: 4px;
 }
 
 .crossTitleCon {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 9.6px;
+  margin-left: 4px;
   flex-shrink: 0;
 }
 
@@ -149,6 +149,13 @@
   margin-left: 2px;
 }
 
+.extraDelText {
+  color: #666;
+  font-family: PingFang SC;
+  font-size: 10.6px;
+  margin-left: 5px;
+}
+
 .columnFlex {
   display: flex;
   flex-direction: column;
@@ -174,7 +181,7 @@
   justify-content: space-between;/*  border-top: 0.5px solid #eee;*/
   max-height: 38.4px;
   align-items: flex-start;
-  margin-top: 10px;
+  margin-top: 20px;
   width: 90%;
 }
 
@@ -189,7 +196,7 @@
   font-size: 9.6px;
   margin-top: 1px;
   max-lines: 1;
-  padding: 0 4px;
+  padding: 0 3px;
 }
 
 .sellInfo {

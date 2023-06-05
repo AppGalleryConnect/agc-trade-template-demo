@@ -1,4 +1,4 @@
-<div class="loadingCon">
+<div class="loadingCon" show="{{ isShow }}">
 	<div class="imgCon">
 		<image src="/media/cart/loading.gif" class="img"></image>
 	</div>

@@ -39,7 +39,7 @@
 			</block>
 			<block if="{{ blockItem.Type === 99 }}">
 				<image src="/media/cart/delete.png" class="extraIcon"></image>
-				<text class="extraText" onclick="handleQuickDelete">快速清理</text>
+				<text class="extraDelText" onclick="handleQuickDelete">快速清理</text>
 			</block>
 		</div>
 	</div>

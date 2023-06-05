@@ -2,7 +2,8 @@
 	<div class="leftContent">
 		<image class="goldIcon" src="/media/cart/gold_icon.png"></image>
 		<text class="goldInfo">{{ str }}</text>
-		<image class="goldIcon2" src="/media/cart/gold_icon2.png"></image>
+	
+	<!--<image class="goldIcon2" src="/media/cart/gold_icon2.png"></image>-->
 	</div>
 	<div class="rightContent" onclick="handleOpenBlackGold" if="{{ ! isGold }}">
 		<text class="actionText">去开通</text>
