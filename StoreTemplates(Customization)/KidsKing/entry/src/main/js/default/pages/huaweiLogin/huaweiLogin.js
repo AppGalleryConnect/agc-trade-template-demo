@@ -17,7 +17,7 @@
 import router from '@system.router';
 import "@hw-agconnect/auth-harmony";
 import agconnect from "@hw-agconnect/core-harmony";
-import { uid, skey } from "../../common/mock_data";
+// import { uid, skey } from "../../common/mock_data";
 import { handleLoginFail, getKidsWantUserInfo, goToPersonalCenter, goBack } from "../../utils/login";
 
 export default {
@@ -36,7 +36,8 @@ export default {
         try {
             const agcUser = await agconnect.auth().signIn(1);
             if (agcUser.getUser().getPhone()) {
-                await getKidsWantUserInfo(uid, skey);
+                const token = await agcUser.getUser().getToken(false);
+                await getKidsWantUserInfo(token.getString());
                 this.loginLoading = false;
                 goToPersonalCenter();
             } else {

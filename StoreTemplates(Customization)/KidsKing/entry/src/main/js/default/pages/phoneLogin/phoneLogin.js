@@ -20,7 +20,7 @@ import agconnect from "@hw-agconnect/core-harmony";
 import { PhoneAuthProvider, VerifyCodeAction } from '@hw-agconnect/auth-harmony';
 import router from '@system.router';
 import prompt from '@system.prompt';
-import { uid, skey } from '../../common/mock_data';
+// import { uid, skey } from '../../common/mock_data';
 import { getKidsWantUserInfo, handleLoginFail, goToPersonalCenter } from '../../utils/login';
 import { invokeWebView } from '../../common/invoke_webview';
 import { AGREEMENT_URLS } from '../../common/constants';
@@ -137,7 +137,7 @@ export default {
             if (linkRes.code !== 0) {
                 return handleLoginFail(linkRes);
             }
-            await getKidsWantUserInfo(uid, skey);
+            await getKidsWantUserInfo(token.getString());
             goToPersonalCenter();
             this.loginBtnLoading = false;
         } catch (e) {
@@ -154,7 +154,7 @@ export default {
             let credential = PhoneAuthProvider.credentialWithVerifyCode("86", this.phoneNumber, this.verifyCode);
             const result = await agconnect.auth().signIn(credential);
             const token = await result.getUser().getToken(false);
-            await getKidsWantUserInfo(uid, skey);
+            await getKidsWantUserInfo(token.getString());
             goToPersonalCenter();
             this.loginBtnLoading = false;
         } catch (e) {

@@ -1,5 +1,5 @@
-<div class="loadingCon" show="{{ isShow }}">
-	<div class="imgCon">
+<div class="loadingCon">
+	<div class="imgCon" if="{{ isShow }}">
 		<image src="/media/cart/loading.gif" class="img"></image>
 	</div>
 </div>

@@ -27,6 +27,16 @@ import { PregnantType, ArticleTitle, BabyStatus, BabyImgMap } from './config';
 import { invokeWebView } from '../../common/invoke_webview';
 import { reportOnClickAndGlanceDispatch } from '../../utils/report-tracker';
 
+const defaultMainTopInfo = {
+  img: "/media/home/noplan.png",
+  title: `开启孕育之旅吧`,
+  tips: '准备好进入下个人生阶段了吗？',
+  babyTips: [{
+	img: '',
+	text: "粑粑麻麻，我在未来等你们哟~"
+  }]
+}
+
 export default {
   data: {
 	babyInfoRes: {
@@ -169,20 +179,13 @@ export default {
 	articleTagList: [],
 	babyImgInPregnant: {},
 	mainImg: '/media/home/noplan.png',
-	mainTopInfo: {
-	  img: "/media/home/noplan.png",
-	  title: `开启孕育之旅吧`,
-	  tips: '准备好进入下个人生阶段了吗？',
-	  babyTips: [{
-		img: '',
-		text: "粑粑麻麻，我在未来等你们哟~"
-	  }]
-	},
+	mainTopInfo: defaultMainTopInfo,
 	isLogin: false,
 	currentUserType: 4,
   },
   onInit() {
 	// this.pageLoading = true
+    this.setInitDataFromStorage()
 	this.getCookieInStorage()
 	// this.actionsInLogin()
 	// 页面初始化时设置顶部状态栏初始颜色，模拟沉浸式效果
@@ -377,6 +380,7 @@ export default {
 		  // 备孕，无计划（默认情况：无计划，没有登录） 宝宝提示语取数据模型的数据
 		  this.getBabyTipDispatch() // 备孕中或无计划获取宝宝提示语
 		  this.getArticleList()
+		  this.mainTopInfo = defaultMainTopInfo;
 	  } else if (+userType === PregnantType.pregnant) {
 		  this.getPregnantConfigDispatch()
 	  } else {
@@ -619,7 +623,9 @@ getBabyTipDispatch() {
   // 请求快捷入口列表
   getQuickEntryListDispatch() {
 	agconnect.lowCode().callDataModel({
-	  modelId: "1151565431287368129", methodName: "list", status: 0, params: {}
+	  modelId: "1151565431287368129", methodName: "list", status: 0, params: {
+		orderBy: "order", orderType: "desc"
+	  }
 	}).then(res => {
 	  const ret = res.getValue().ret;
 	  if (ret.code !== 0) {
@@ -818,15 +824,19 @@ getBabyTipDispatch() {
 	});
   },
   // 添加宝宝
-  handleToAddBaby() {
+  handleToAddBaby(event) {
+	event.stopPropagation?.()
 	if (this.babyList.length >= 5) {
-	  return prompt.showToast({
-		message: '最多支持添加5个宝宝哦',
+	  setTimeout(() => {
+		prompt.showToast({
+		  message: '最多支持添加5个宝宝哦',
+		});
+	  }, 100)
+	} else {
+	  invokeWebView({
+		url: `https://w.cekid.com/user/baby-info.html?isBabyInfo=1`
 	  });
 	}
-	invokeWebView({
-	  url: `https://w.cekid.com/user/baby-info.html?isBabyInfo=1`
-	});
   },
   // 跳转到宝宝信息维护页
   handleJumpToBabyInfoConfig(event) {

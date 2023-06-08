@@ -39,9 +39,7 @@
 .goodsImgCon {
   width: 96px;
   height: 96px;
-  max-height: 96px;
-  min-width: 96px;
-  min-height: 96px;
+  flex-shrink: 0;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -53,7 +51,7 @@
 }
 
 .stockCon {
-  width: 100%;
+  width: 96px;
   height: 15.4px;
   background-color: #ccff397e;
   display: flex;

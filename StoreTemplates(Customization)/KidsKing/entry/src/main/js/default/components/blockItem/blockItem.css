@@ -200,8 +200,9 @@
 }
 
 .sellInfo {
-  max-width: 180px;
-  min-height: 13.4px;/*  max-height: 34.6px;*/
+  max-width: 65%;
+  min-height: 13.4px;
+  max-height: 34.6px;
   color: #262626;
   font-family: PingFang SC;
   font-weight: 500;

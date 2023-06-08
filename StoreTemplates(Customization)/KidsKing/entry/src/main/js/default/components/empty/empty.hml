@@ -1,6 +1,5 @@
 <div class="emptyCon">
 	<image src="/media/cart/empty.png" class="img"></image>
 	<text class="title">您的购物车还是空的哦</text>
-	<text class="desc">这是一条很帅的场景内容文案</text>
 	<button class="btn" onclick="handleToSee">去逛逛</button>
 </div>

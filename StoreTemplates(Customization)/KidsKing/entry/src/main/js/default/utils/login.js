@@ -36,7 +36,27 @@ async function getUserInfo(uid, skey) {
     }
 }
 
-export async function getKidsWantUserInfo(uid, skey) {
+export async function loginKidswant(jwt) {
+    const res = await agconnect.lowCode().callConnector({
+        connectorId: "1157064775251811648", methodName: "loginByHWHarMony", params: JSON.stringify({ jwt })
+    });
+    const ret = res.getValue().ret;
+    const response = res.getValue().response;
+    if (ret.code === 0) {
+        return JSON.parse(response).data;
+    } else {
+        return null;
+    }
+}
+
+export async function getKidsWantUserInfo(jwt) {
+    const loginRet = await loginKidswant(jwt);
+    if (!loginRet){
+        handleLoginFail();
+    }
+    const uid = loginRet.uid;
+    const skey = loginRet.skey;
+
     const userInfo = await getUserInfo(uid, skey);
     if (!userInfo) {
         handleLoginFail();

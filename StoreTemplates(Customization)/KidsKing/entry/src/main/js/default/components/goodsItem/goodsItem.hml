@@ -48,7 +48,7 @@
 			</block>
 		</div>
 	</div>
-	<div class="editCon">
+	<div class="editCon" v-if="{{ goodsItem.Id }}">
 	
 	<!--<text class="findLikeBtnInEdit" onclick="handleFindLike">找相似</text>-->
 		<text class="delBtnInEdit" onclick="handleDeleteGoods">删除</text>

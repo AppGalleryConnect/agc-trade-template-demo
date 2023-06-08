@@ -211,7 +211,7 @@ export default {
                 key: 'userInfo',
                 success: (userInfo) => {
                     this.userInfo = JSON.parse(userInfo);
-                    this.avatar = this.userInfo.photo;
+                    this.avatar = this.userInfo.photo?.replace('http://', 'https://');
                     this.level = this.userInfo.userlevel;
                     this.username = this.userInfo.nickname;
                     this.isVip = this.userInfo.memberlevel === LEVEL_BLACKGOLD;
