@@ -16,11 +16,15 @@
 
 package com.goshaanxi.atomic;
 
+import com.huawei.agconnect.AGConnectInstance;
+import com.huawei.agconnect.auth.huawei.HuaweiAuthApiImpl;
 import ohos.aafwk.ability.AbilityPackage;
 
 public class MyApplication extends AbilityPackage {
     @Override
     public void onInitialize() {
+        HuaweiAuthApiImpl.setMobileNumber(true);
+        AGConnectInstance.initialize(this);
         super.onInitialize();
     }
 }

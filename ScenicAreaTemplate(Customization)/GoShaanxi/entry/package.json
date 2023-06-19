@@ -1,1 +1,6 @@
-{}
+{
+  "dependencies": {
+    "@hw-agconnect/agc-login-jssdk": "1.1.1",
+    "@hw-agconnect/lowcode-harmony": "~1.1.0-beta"
+  }
+}
