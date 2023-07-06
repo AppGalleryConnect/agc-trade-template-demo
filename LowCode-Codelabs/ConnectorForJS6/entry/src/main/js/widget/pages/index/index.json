@@ -1,0 +1,17 @@
+{
+  "data": {
+    "title": "Title",
+    "detail": "Text",
+    "iconTitle": "Picture"
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "router",
+      "bundleName": "com.codelab.connector",
+      "abilityName": "com.codelab.connector.MainAbility",
+      "params": {
+        "message": "add detail"
+      }
+    }
+  }
+}

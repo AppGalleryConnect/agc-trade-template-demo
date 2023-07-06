@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@hw-agconnect/lowcode-harmony": "~1.1.0-beta"
+  }
+}

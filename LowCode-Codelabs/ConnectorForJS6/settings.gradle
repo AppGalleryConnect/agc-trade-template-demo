@@ -1,0 +1,2 @@
+rootProject.name = 'ConnectorForJS6'
+include ':entry'
